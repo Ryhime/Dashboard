@@ -1,0 +1,18 @@
+<p-panel styleClass="panel" [toggleable]="true">
+    <ng-template pTemplate="header">
+        <h2>Tasks</h2>
+        <i class="pi pi-list-check header-icon"></i>
+    </ng-template>
+    <div id="body">
+        <div id="daily-tasks">
+            <h3 class="sub-header">Daily Tasks</h3>
+            <div class="task-entry">
+                <p-checkbox class="task-checkbox"></p-checkbox>
+                <p>TASK 1</p>
+            </div>
+        </div>
+        <div id="today-tasks">
+            <h3 class="sub-header">Today's Tasks</h3>
+        </div>
+    </div>
+</p-panel>
