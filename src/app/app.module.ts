@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -7,9 +7,11 @@ import { AppComponent } from './app.component';
 import { TasksPanelComponent } from './tasks-panel/tasks-panel.component';
 import { PanelModule } from 'primeng/panel';
 import {CheckboxModule} from 'primeng/checkbox';
+import {ButtonModule} from 'primeng/button';
 import { ComputerStatsComponent } from './computer-stats/computer-stats.component';
 import { NetworkStatsComponent } from './network-stats/network-stats.component';
 import { AppsComponent } from './apps/apps.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { AppsComponent } from './apps/apps.component';
     TasksPanelComponent,
     ComputerStatsComponent,
     NetworkStatsComponent,
-    AppsComponent
+    AppsComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,8 +27,11 @@ import { AppsComponent } from './apps/apps.component';
     AppRoutingModule,
     PanelModule,
     CheckboxModule,
+    CommonModule,
+    ButtonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

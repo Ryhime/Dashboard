@@ -4,15 +4,29 @@
     gap: 10px;
 }
 #daily-tasks{
-    border-right: thick dashed white;
+    border-right: thin solid white;
 }
+
 .sub-header{
     text-align: center;
     text-decoration: underline;
 }
 .task-entry{
-    display: flex;
+    display: inline-block;
+    width: 100%;
+    font-size: large;
 }
-.task-checkbox{
-    padding-right: 1rem;
+
+:host ::ng-deep{
+    p-button{
+        :hover{
+            cursor: pointer;
+        }
+        .check-icon-button{
+            color: green;
+        }
+        .star-icon-button{
+            color: gold;
+        }
+    }
 }

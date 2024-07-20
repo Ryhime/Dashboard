@@ -6,13 +6,21 @@
     <div id="body">
         <div id="daily-tasks">
             <h3 class="sub-header">Daily Tasks</h3>
-            <div class="task-entry">
-                <p-checkbox class="task-checkbox"></p-checkbox>
-                <p>TASK 1</p>
+            <div class="task-entry" *ngFor="let task of dailyTasks; index as i">
+                <p-button (onClick)="onClickStar(true, i)" styleClass="star-icon-button" icon="pi pi-star-fill" [text]="true" [rounded]="true" *ngIf="task.starred"/>
+                <p-button (onClick)="onClickStar(true, i)" styleClass="star-icon-button" icon="pi pi-star" [text]="true" [rounded]="true" *ngIf="!task.starred"/>
+                <p-button (onClick)="onCheck(true, i)" styleClass="check-icon-button" icon="pi pi-check-circle" [text]="true" [rounded]="true" [outlined]="false"/>
+                {{task.text}}
             </div>
         </div>
         <div id="today-tasks">
             <h3 class="sub-header">Today's Tasks</h3>
+            <div class="task-entry" *ngFor="let task of todaysTasks; index as i">
+                <p-button (onClick)="onClickStar(false, i)" styleClass="star-icon-button" icon="pi pi-star-fill" [text]="true" [rounded]="true" *ngIf="task.starred"/>
+                <p-button (onClick)="onClickStar(false, i)" styleClass="star-icon-button" icon="pi pi-star" [text]="true" [rounded]="true" *ngIf="!task.starred"/>
+                <p-button (onClick)="onCheck(false, i)" styleClass="check-icon-button" icon="pi pi-check-circle" [text]="true" [rounded]="true" [outlined]="false"/>
+                {{task.text}}
+            </div>
         </div>
     </div>
 </p-panel>
