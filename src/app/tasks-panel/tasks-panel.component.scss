@@ -15,6 +15,16 @@
     display: inline-block;
     width: 100%;
     font-size: large;
+    padding-left: 0px;
+    transition-duration: .5s;
+    transition-property: padding-left;
+}
+
+.task-entry:hover{
+    transition-property: padding-left;
+    padding-left: .5rem;
+    transition-duration: .5s;
+    cursor: pointer;
 }
 
 :host ::ng-deep{
