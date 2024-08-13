@@ -1,0 +1,12 @@
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-title-bar{
+    justify-content: left;
+}
+
+.right-title-bar{
+    justify-content: right;
+}

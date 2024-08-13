@@ -12,6 +12,7 @@ import { ComputerStatsComponent } from './computer-stats/computer-stats.componen
 import { NetworkStatsComponent } from './network-stats/network-stats.component';
 import { AppsComponent } from './apps/apps.component';
 import { CommonModule } from '@angular/common';
+import { TitleBarComponent } from './title-bar/title-bar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     ComputerStatsComponent,
     NetworkStatsComponent,
     AppsComponent,
+    TitleBarComponent,
   ],
   imports: [
     BrowserModule,
