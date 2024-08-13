@@ -1,12 +1,23 @@
 .title-bar {
+    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
 }
 
-.left-title-bar{
+.title-bar-text {
+    margin: 5px;
+}
+
+.left-title-bar {
     justify-content: left;
 }
 
-.right-title-bar{
+.right-title-bar{ 
     justify-content: right;
+    vertical-align: center;
+}
+
+.pi {
+    font-size: 2.5rem;
+    cursor: pointer;
 }
