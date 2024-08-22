@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 import pyshark
-import requests
 
 def getPackets(numPackets: int):
     capture = pyshark.LiveCapture(interface='enp42s0')
