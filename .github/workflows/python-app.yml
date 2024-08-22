@@ -48,7 +48,7 @@ jobs:
         npm i
     - name: Lint
       run: |
-        ng lint
+        npm run ng lint
     - name: Test
       run: |
-        ng test
+        npm run ng test
