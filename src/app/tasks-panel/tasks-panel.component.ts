@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import {Component, OnInit} from '@angular/core';
 
 
 class Task{
@@ -49,13 +48,13 @@ export class TasksPanelComponent implements OnInit{
   }
 
   onClickStar(isDaily: boolean, index: number) {
-    let target: Task[] = isDaily ? this.dailyTasks : this.todaysTasks;
+    const target: Task[] = isDaily ? this.dailyTasks : this.todaysTasks;
     target[index].starred = !target[index].starred
     this.sortTasks(target);
   }
 
   onCheck(isDaily: boolean, index: number) {
-    let target: Task[] = isDaily ? this.dailyTasks : this.todaysTasks;
+    const target: Task[] = isDaily ? this.dailyTasks : this.todaysTasks;
     target.splice(index, 1);
   }
 }
