@@ -36,7 +36,8 @@ jobs:
       run: |
         pytest
     - name: Postman Tests
-      newman run Service/Postman/PostmanTests.json
+      run: |
+        newman run Service/Postman/PostmanTests.json
 
       
   Angular-Frontend:
