@@ -70,7 +70,7 @@ def get_computer_stats():
 def get_network_stats():
     """End Point For Getting Network Stats"""
     num_packets = request.args.get('numPackets')
-    if (num_packets is None):
+    if num_packets is None:
         num_packets = DEFAULT_PACKETS_TO_SNIFF
     else:
         num_packets = int(num_packets)
