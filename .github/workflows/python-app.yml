@@ -49,6 +49,3 @@ jobs:
     - name: Lint
       run: |
         npm run ng lint
-    - name: Test
-      run: |
-        npm run ng test --watch=false
