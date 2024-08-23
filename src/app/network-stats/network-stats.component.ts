@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BackendServiceService } from '../Services/backend-service.service';
 
 @Component({
   selector: 'app-network-stats',
