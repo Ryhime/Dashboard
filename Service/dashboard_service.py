@@ -1,5 +1,8 @@
 """Module that acts as a backend service for the Dashboard"""
+import platform
 from flask import Flask, jsonify, request
+from gpuinfo import GPUInfo
+import psutil
 import pyshark
 
 def get_packets(num_packets: int):
@@ -30,12 +33,36 @@ app = Flask(__name__)
 @app.route('/tasks', methods = ['GET'])
 def get_tasks():
     """End Point For Getting Google Tasks"""
-    return jsonify('tasks', [])
+    response = jsonify('tasks', [])
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/computer-stats', methods = ['GET'])
 def get_computer_stats():
     """End Point For Getting Computer Stats"""
-    return jsonify('computer-stats', [])
+    data = {}
+    # Static
+    data['platform'] = platform.platform()
+    data['system'] = platform.system()
+
+    # GPU
+    gpu_info = GPUInfo.get_info()
+    data['gpu_total'] = sum(gpu_info[2])
+    data['gpu_used'] = sum(gpu_info[1])
+    data['gpu_percent'] = sum(gpu_info[1])/sum(gpu_info[2])
+
+    # CPU
+    data['cpu_percent'] = psutil.cpu_percent()
+    data['cpu_count'] = psutil.cpu_count()
+    data['cpu'] = platform.processor()
+
+    # RAM
+    ram = psutil.virtual_memory()
+    data['ram_total'] = ram.total
+    data['ram_used'] = ram.used
+    data['ram_percent'] = ram.percent
+    
+    return jsonify('computer-stats', data)
 
 @app.route('/network-stats', methods = ['GET'])
 def get_network_stats():

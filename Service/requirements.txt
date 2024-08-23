@@ -1,2 +1,4 @@
 flask
 pyshark
+gpuinfo
+psutil

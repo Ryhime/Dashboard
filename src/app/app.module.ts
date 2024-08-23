@@ -13,6 +13,7 @@ import { NetworkStatsComponent } from './network-stats/network-stats.component';
 import { AppsComponent } from './apps/apps.component';
 import { CommonModule } from '@angular/common';
 import { TitleBarComponent } from './title-bar/title-bar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
     CheckboxModule,
     CommonModule,
     ButtonModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

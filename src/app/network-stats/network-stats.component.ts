@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BackendServiceService } from '../Services/backend-service.service';
 
 @Component({
   selector: 'app-network-stats',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class NetworkStatsComponent {
 
+  constructor(backendService: BackendServiceService) {
+  }
 }
