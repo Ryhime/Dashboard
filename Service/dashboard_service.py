@@ -5,6 +5,8 @@ from gpuinfo import GPUInfo
 import psutil
 import pyshark
 
+DEFAULT_PACKETS_TO_SNIFF = 100
+
 def get_packets(num_packets: int):
     """Gets the IP Addresses For Incoming Packets"""
     capture = pyshark.LiveCapture(interface='enp42s0')
@@ -67,9 +69,13 @@ def get_computer_stats():
 @app.route('/network-stats', methods = ['GET'])
 def get_network_stats():
     """End Point For Getting Network Stats"""
-    num_packets: int = int(request.args.get('numPackets'))
+    num_packets = request.args.get('numPackets')
+    if (num_packets is None):
+        num_packets = DEFAULT_PACKETS_TO_SNIFF
+    else:
+        num_packets = int(num_packets)
     packet_info = get_packets(num_packets)
-    return jsonify('network-stats', packet_info)
+    return jsonify(packet_info)
 
 
 if __name__ == '__main__':
