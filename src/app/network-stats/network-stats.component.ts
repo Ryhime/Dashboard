@@ -8,6 +8,6 @@ import { BackendServiceService } from '../Services/backend-service.service';
 })
 export class NetworkStatsComponent {
 
-  constructor(backendService: BackendServiceService) {
+  constructor() {
   }
 }
