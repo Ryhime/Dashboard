@@ -61,7 +61,7 @@ def get_computer_stats():
     data['ram_total'] = ram.total
     data['ram_used'] = ram.used
     data['ram_percent'] = ram.percent
-    
+
     return jsonify('computer-stats', data)
 
 @app.route('/network-stats', methods = ['GET'])
