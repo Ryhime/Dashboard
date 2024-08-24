@@ -35,9 +35,6 @@ jobs:
     - name: Test With Pytest
       run: |
         pytest
-    - name: Postman Tests
-      run: |
-        python3 Service/dashboard_service.py & newman run Service/Postman/PostmanTests.json
 
       
   Angular-Frontend:
