@@ -32,6 +32,9 @@ def get_packets(num_packets: int):
 app = Flask(__name__)
 
 
+@app.route('/test', methods = ['GET'])
+def testMethod():
+    return jsonify({'a':1})
 @app.route('/tasks', methods = ['GET'])
 def get_tasks():
     """End Point For Getting Google Tasks"""
