@@ -33,7 +33,8 @@ app = Flask(__name__)
 
 
 @app.route('/test', methods = ['GET'])
-def testMethod():
+def test_method():
+    """TEST"""
     return jsonify({'a':1})
 @app.route('/tasks', methods = ['GET'])
 def get_tasks():

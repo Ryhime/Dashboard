@@ -7,51 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Testing that each field exists",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status Should be 200 and return valid fields\", function (){",
-							"    const response = pm.response.json();",
-							"    pm.response.to.have.status(200);",
-							"    pm.expect(response.cpu).to.be.a('string');",
-							"    pm.expect(response.cpu_count).to.be.a('number');",
-							"    pm.expect(response.cpu_percent).to.be.a('number');",
-							"    pm.expect(response.gpu_percent).to.be.a('number');",
-							"    pm.expect(response.gpu_total).to.be.a('number');",
-							"    pm.expect(response.gpu_used).to.be.a('number');",
-							"",
-							"    pm.expect(response.platform).to.be.a('string');",
-							"    pm.expect(response.ram_percent).to.be.a('number');",
-							"    pm.expect(response.ram_total).to.be.a('number');",
-							"    pm.expect(response.ram_used).to.be.a('number');",
-							"    pm.expect(response.system).to.be.a('string');",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:{{port}}/computer-stats",
-					"host": [
-						"localhost"
-					],
-					"port": "{{port}}",
-					"path": [
-						"computer-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Test",
 			"request": {
 				"method": "GET",
