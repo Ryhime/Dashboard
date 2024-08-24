@@ -10,7 +10,17 @@
 			"name": "Test",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/test",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"test"
+					]
+				}
 			},
 			"response": []
 		}
