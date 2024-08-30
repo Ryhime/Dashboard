@@ -1,11 +1,20 @@
 """Module that acts as a backend service for the Dashboard"""
 import platform
+import os
 from flask import Flask, jsonify, request
 from gpuinfo import GPUInfo
 import psutil
 import pyshark
 
+# Google
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
 DEFAULT_PACKETS_TO_SNIFF = 100
+SCOPES = ["https://www.googleapis.com/auth/tasks.readonly"]
 
 def get_packets(num_packets: int):
     """Gets the IP Addresses For Incoming Packets"""
@@ -31,15 +40,43 @@ def get_packets(num_packets: int):
 
 app = Flask(__name__)
 
-
-@app.route('/test', methods = ['GET'])
-def test_method():
-    """TEST"""
-    return jsonify({'a':1})
 @app.route('/tasks', methods = ['GET'])
 def get_tasks():
     """End Point For Getting Google Tasks"""
-    response = jsonify('tasks', [])
+    creds = None
+    # Setup credientials
+    if os.path.exists("token.json"):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                "credentials.json", SCOPES
+            )
+            creds = flow.run_local_server()
+            print(creds.to_json())
+    with open("token.json", "w") as token:
+        token.write(creds.to_json())
+
+    try:
+        service = build("tasks", "v1", credentials=creds)
+
+        # Get task list
+        tasklists = service.tasklists().list(maxResults=10).execute()
+        items = tasklists.get("items", [])
+
+        tuples = []
+        for t in items:
+            tasks = service.tasks().list(tasklist=t['id']).execute()
+            tuples.append((t, tasks['items']))
+    except HttpError as err:
+        return err
+
+
+
+    response = jsonify(tuples)
     return response
 
 @app.route('/computer-stats', methods = ['GET'])
