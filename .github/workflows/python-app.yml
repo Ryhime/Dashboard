@@ -47,9 +47,10 @@ jobs:
       run: |
         npm cache clear --force
         npm i
+        npm i -g @angular/cli
     - name: Lint
       run: |
         npm run ng lint
     - name: Test
       run: |
-        ng test
+        ng test --no-watch
