@@ -57,19 +57,19 @@ def get_tasks():
             )
             creds = flow.run_local_server()
             print(creds.to_json())
-    with open("token.json", "w") as token:
+    with open("token.json", "w", encoding = "utf-8") as token:
         token.write(creds.to_json())
 
     try:
         service = build("tasks", "v1", credentials=creds)
 
         # Get task list
-        tasklists = service.tasklists().list(maxResults=10).execute()
+        tasklists = service.tasklists().list(maxResults=10).execute() # pylint: disable=no-member
         items = tasklists.get("items", [])
 
         tuples = []
         for t in items:
-            tasks = service.tasks().list(tasklist=t['id']).execute()
+            tasks = service.tasks().list(tasklist=t['id']).execute() # pylint: disable=no-member
             tuples.append((t, tasks['items']))
     except HttpError as err:
         return err
