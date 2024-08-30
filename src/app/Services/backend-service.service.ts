@@ -9,7 +9,7 @@ export class BackendServiceService {
 
   networkData$ = new Observable;
 
-  constructor(http: HttpClient) { 
+  constructor(http: HttpClient) {
     this.networkData$ = http.get('localhost:5000/tasks');
   }
 }

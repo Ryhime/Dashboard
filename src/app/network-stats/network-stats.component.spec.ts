@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NetworkStatsComponent } from './network-stats.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NetworkStatsComponent', () => {
   let component: NetworkStatsComponent;
@@ -8,7 +9,8 @@ describe('NetworkStatsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NetworkStatsComponent]
+      declarations: [NetworkStatsComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
     

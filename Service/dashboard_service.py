@@ -40,7 +40,6 @@ def test_method():
 def get_tasks():
     """End Point For Getting Google Tasks"""
     response = jsonify('tasks', [])
-    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/computer-stats', methods = ['GET'])
