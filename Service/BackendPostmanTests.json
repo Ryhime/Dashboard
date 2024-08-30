@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "edf20450-0bb2-4007-b9db-7fa15274c4cf",
+		"name": "Not In Pipeline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37859846"
+	},
+	"item": [
+		{
+			"name": "Testing For Default Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Should be 200 and return valid fields with numPackets being 100\", function (){",
+							"    const response = pm.response.json();",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(response.ips).to.be.a('object');",
+							"    pm.expect(response.numPackets).to.be.a('number');",
+							"    pm.expect(response.numPackets).to.eql(100);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:{{port}}/network-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testing For Given Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Should be 200 and return valid fields with numPackets being 5\", function (){",
+							"    const response = pm.response.json();",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(response.ips).to.be.a('object');",
+							"    pm.expect(response.numPackets).to.be.a('number');",
+							"    pm.expect(response.numPackets).to.eql(5);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:{{port}}/network-stats?numPackets=5",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network-stats"
+					],
+					"query": [
+						{
+							"key": "numPackets",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testing that each field exists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Should be 200 and return valid fields\", function (){",
+							"    const response = pm.response.json();",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(response.cpu).to.be.a('string');",
+							"    pm.expect(response.cpu_count).to.be.a('number');",
+							"    pm.expect(response.cpu_percent).to.be.a('number');",
+							"    pm.expect(response.gpu_percent).to.be.a('number');",
+							"    pm.expect(response.gpu_total).to.be.a('number');",
+							"    pm.expect(response.gpu_used).to.be.a('number');",
+							"",
+							"    pm.expect(response.platform).to.be.a('string');",
+							"    pm.expect(response.ram_percent).to.be.a('number');",
+							"    pm.expect(response.ram_total).to.be.a('number');",
+							"    pm.expect(response.ram_used).to.be.a('number');",
+							"    pm.expect(response.system).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:{{port}}/computer-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"computer-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testing Google Tasks End Point With an Auth User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Should be 200 and return valid fields for tasks\", function (){",
+							"    const response = pm.response.json();",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:{{port}}/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "5000",
+			"type": "string"
+		}
+	]
+}
