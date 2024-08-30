@@ -53,4 +53,4 @@ jobs:
         npm run ng lint
     - name: Test
       run: |
-        ng test --no-watch --browsers=FirefoxHeadless
+        ng test --no-watch --browsers=FirefoxHeadless --code-coverage
