@@ -42,3 +42,7 @@ testem.log
 Thumbs.db
 .nx/cache
 .nx/workspace-data
+
+# google api credentials
+credentials.json
+token.json
