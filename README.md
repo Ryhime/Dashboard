@@ -1,27 +1,37 @@
 # Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
 
-## Development server
+## CI/CD
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Implements CI/CD pipelines for both the backend and frontend components using the following:
+<br>
+<ul>
+  <li>Front End Unit Tests Through Jasmine</li>
+  <li>Postman Tests for Backend Where Needed</li>
+  <li>Github Actions pipeline for linting and unit tests in the frontend.</li>
+</ul>
 
-## Code scaffolding
+## Bakend
+Built in Python using Flask no database is used for now to keep the project more simple/not needed. Postman tests are made in the repo but are not ran in the pipeline due to the backend mostly calling outside sources so too many mocks would be needed.
+<br>
+<ul>
+  <li>Google Tasks Endpoint</li>
+  <li>Computer Stats Endpoint</li>
+  <li>Network Stats Endpoint</li>
+</ul>
+<br>
+Service: Service/dashboard_service.py
+<br>
+Postman Tests: Service/BackendPostmanTests.json
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Frontend
+Built in Angular. Uses unit tests to test different components using Jasmine. There are four tabs on the frontend:
+<br>
+<ul>
+  <li>Tasks</li>
+  <li>Computer Stats</li>
+  <li>Network</li>
+  <li>Applications</li>
+</ul>
+<br>
+To run: ng serve --port {localPortNumber}
