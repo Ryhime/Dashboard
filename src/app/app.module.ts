@@ -8,6 +8,7 @@ import { TasksPanelComponent } from './tasks-panel/tasks-panel.component';
 import { PanelModule } from 'primeng/panel';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
+import {ChartModule} from 'primeng/chart';
 import { ComputerStatsComponent } from './computer-stats/computer-stats.component';
 import { NetworkStatsComponent } from './network-stats/network-stats.component';
 import { AppsComponent } from './apps/apps.component';
@@ -33,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     ButtonModule,
     HttpClientModule,
+    ChartModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

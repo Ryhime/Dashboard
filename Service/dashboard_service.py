@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request
 from gpuinfo import GPUInfo
 import psutil
 import pyshark
+from flask_cors import CORS
 
 # Google
 from google.auth.transport.requests import Request
@@ -12,6 +13,11 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+
+app = Flask(__name__)
+
+CORS(app, resources={r"/*": {"origins": [r"*"]}})
+
 
 DEFAULT_PACKETS_TO_SNIFF = 100
 SCOPES = ["https://www.googleapis.com/auth/tasks.readonly"]
@@ -37,8 +43,6 @@ def get_packets(num_packets: int):
         'ips': ip_addresses,
         'numPackets': num_packets
     }
-
-app = Flask(__name__)
 
 @app.route('/tasks', methods = ['GET'])
 def get_tasks():
