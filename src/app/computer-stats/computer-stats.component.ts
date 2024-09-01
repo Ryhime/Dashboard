@@ -79,6 +79,11 @@ export class ComputerStatsComponent {
       });
   }
 
+  /**
+   * Shifts the list one to the left
+   * @param {number[]} list The list to shift this parameter is also modified
+   * @return {number[]} The shifted list
+   */
   shiftListOneIndexToLeft(list: number[]): number[] {
     list.forEach((value: number, i: number) => {
       if (i === 0) {
@@ -86,6 +91,8 @@ export class ComputerStatsComponent {
       }
       list[i - 1] = value;
     });
+    // Remove Last Element
+    list = list.slice(0, list.length - 1);
     return list;
   }
 
@@ -116,8 +123,7 @@ export class ComputerStatsComponent {
       }
     });
 
-
-    // Update Table Data and stop initial animation
+    // Update Table Data to re render
     this.tableData = {...this.tableData};
   }
 }
