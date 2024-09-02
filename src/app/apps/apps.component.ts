@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './apps.component.scss'
 })
 export class AppsComponent {
-
+  onClickButtonUrl(url: string) {
+    window.open(url, '_blank');
+  }
 }

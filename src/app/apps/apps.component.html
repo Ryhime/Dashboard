@@ -3,5 +3,26 @@
         <h2>Applications</h2>
         <i class="pi pi-table header-icon"></i>
     </ng-template>
-    Shows applications to open like spotify and youtube maybe opens in a different browser or just reroutes
+    <p-button (onClick)="onClickButtonUrl('http://www.youtube.com')">
+        <p>Youtube</p>    
+    </p-button>
+    <p-button (onClick)="onClickButtonUrl('http://www.netflix.com')">
+        <p>Netflix</p>
+    </p-button>
+    <p-button (onClick)="onClickButtonUrl('https://calendar.google.com')">
+        <p>Google Calendar</p>
+    </p-button>
+    <p-button (onClick)="onClickButtonUrl('https://drive.google.com')">
+        <p>Google Drive</p>
+    </p-button>
+    <p-button (onClick)="onClickButtonUrl('https://calendar.google.com/calendar/u/0/r/tasks')">
+        <p>Google Tasks</p>
+    </p-button>
+    <p-button (onClick)="onClickButtonUrl('https://www.amazon.com')">
+        <p>Amazon</p>
+    </p-button>
+    <br>
+    <p-button>
+        <p>Steam</p>
+    </p-button>
 </p-panel>
