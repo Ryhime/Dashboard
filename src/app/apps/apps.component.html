@@ -3,29 +3,28 @@
         <h2>Applications</h2>
         <i class="pi pi-table header-icon"></i>
     </ng-template>
-    <p-button (onClick)="onClickButtonUrl('http://www.youtube.com')">
-        <p>Youtube</p>    
-    </p-button>
-    <p-button (onClick)="onClickButtonUrl('http://www.netflix.com')">
-        <p>Netflix</p>
-    </p-button>
-    <p-button (onClick)="onClickButtonUrl('https://calendar.google.com')">
-        <p>Google Calendar</p>
-    </p-button>
-    <p-button (onClick)="onClickButtonUrl('https://drive.google.com')">
-        <p>Google Drive</p>
-    </p-button>
-    <p-button (onClick)="onClickButtonUrl('https://calendar.google.com/calendar/u/0/r/tasks')">
-        <p>Google Tasks</p>
-    </p-button>
-    <p-button (onClick)="onClickButtonUrl('https://www.amazon.com')">
-        <p>Amazon</p>
-    </p-button>
-    <p-button (onClick)="onClickButtonUrl('https://app.rocketmoney.com')">
-        <p>Rocket Money</p>
-    </p-button>
-    <br>
-    <p-button>
-        <p>Steam</p>
-    </p-button>
+    <div class="icon-container">
+        <a href = "http://www.youtube.com">
+             <img src="../../assets/ApplicationIcons/Youtube.png" alt="Youtube" class="icon">
+        </a>
+        <a href = "http://www.netflix.com">
+            <img src="../../assets/ApplicationIcons/Netflix.png" alt="Netflix" class="icon">
+       </a>
+       <a href = "https://calendar.google.com">
+        <img src="../../assets/ApplicationIcons/Calendar.png" alt="Google Calendar" class="icon">
+       </a>
+
+       <a href = "https://drive.google.com">
+        <img src="../../assets/ApplicationIcons/Drive.png" alt="Google Drive" class="icon">
+       </a>
+       <a href = "https://calendar.google.com/calendar/u/0/r/tasks">
+        <img src="../../assets/ApplicationIcons/Tasks.png" alt="Google Tasks" class="icon">
+       </a>
+       <a href = "https://www.amazon.com">
+        <img src="../../assets/ApplicationIcons/Amazon.png" alt="Amazon" class="icon">
+       </a>
+       <a href = "https://app.rocketmoney.com">
+        <img src="../../assets/ApplicationIcons/RocketMoney.png" alt="Rocket Money" class="icon">
+       </a>
+    </div>
 </p-panel>

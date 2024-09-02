@@ -13,7 +13,6 @@ enum TableCategory {
   styleUrl: './computer-stats.component.scss'
 })
 export class ComputerStatsComponent {
-
   UNDEFINED_TEXT: string = 'Loading...';
   NULL_TEXT: string = 'Data Not Found';
   MIN_UPDATE_TIME: number = .5;
