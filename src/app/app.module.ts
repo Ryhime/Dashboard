@@ -18,7 +18,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { KnobModule } from 'primeng/knob';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { MenuModule } from 'primeng/menu';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
@@ -44,7 +43,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     KnobModule,
     FormsModule,
     TableModule,
-    MenuModule,
     InputNumberModule,
     FloatLabelModule,
   ],

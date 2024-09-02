@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { interval, Observable, Subscription } from 'rxjs';
 
 enum TableCategory {
@@ -48,33 +48,38 @@ export class ComputerStatsComponent {
         data: Array<number>(this.MAX_GRAPH_DATA_POINTS).fill(0),
         fill: true,
         tension: .4,
+        pointRadius: 0,
       },
       {
         label: TableCategory.GPU,
         data: Array<number>(this.MAX_GRAPH_DATA_POINTS).fill(0),
         fill: true,
         tension: .4,
+        pointRadius: 0,
       },
       {
         label: TableCategory.RAM,
         data: Array<number>(this.MAX_GRAPH_DATA_POINTS).fill(0),
         fill: true,
         tension: .4,
+        pointRadius: 0,
       }
     ],
   };
 
   tableOptions = {
+    responsive: true,
     animation: {
       duration: 0,
     },
     scales: {
       y: {
-        ticks: {
-          beginAtZero: true,
-          max: 100,
-          min: 0,
-        }
+        display: true,
+        min: 0,
+        max: 100,
+      },
+      x: {
+        display: false
       }
     }
   };

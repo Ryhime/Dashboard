@@ -29,7 +29,7 @@
         </div>
         <div class="dynamic-data">
             <!-- CPU, GPU, and RAM usage graphs all in one?? -->
-             <p-chart type="line" [data]="tableData" [options]="tableOptions"></p-chart>
+             <p-chart #chart type="line" [data]="tableData" [options]="tableOptions"></p-chart>
              <div class="knobs">
                 <div>
                     <p-knob [(ngModel)]="latestCpuUsage" valueTemplate="{value}%" readonly="true"></p-knob>
