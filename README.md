@@ -38,6 +38,8 @@ Built in Angular. Uses unit tests to test different components using Jasmine. Th
 </ul>
 <br>
 To run: <code>ng serve --port {localPortNumber}</code>
-
+<br>
+<br>
+<br>
 
 <img src="DashboardPrototype.png" alt="Dashboard Image">
