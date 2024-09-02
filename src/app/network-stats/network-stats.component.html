@@ -8,10 +8,12 @@
             <p-knob [(ngModel)]="numberOfPacketsPerUpdate" size="100" readonly="true" [min]="MIN_NUM_PACKETS_REQUEST" [max]="MAX_NUM_PACKETS_REQUEST"/>
             <p>Packets Per Request</p>
             <p-button 
+                class="button"
                 icon="pi pi-plus" 
                 (onClick)="numberOfPacketsPerUpdate = numberOfPacketsPerUpdate + STEP_NUM_PACKETS_REQUEST" 
                 [disabled]="numberOfPacketsPerUpdate >= MAX_NUM_PACKETS_REQUEST" />
             <p-button 
+                class="button"
                 icon="pi pi-minus" 
                 (onClick)="numberOfPacketsPerUpdate = numberOfPacketsPerUpdate - STEP_NUM_PACKETS_REQUEST" 
                 [disabled]="numberOfPacketsPerUpdate <= MIN_NUM_PACKETS_REQUEST" />
@@ -21,10 +23,12 @@
             <p-knob [(ngModel)]="updateTimeInMinutes" size="100" readonly="true" [min]="MIN_REQUEST_TIME_MINUTES" [max]="MAX_REQUEST_TIME_MINUTES"/>
             <p>Request Time - Minutes</p>
             <p-button 
+            class="button"
             icon="pi pi-plus" 
             (onClick)="updateTimeInMinutes = updateTimeInMinutes + STEP_REQUEST_TIME_MINUTES" 
             [disabled]="updateTimeInMinutes >= MAX_REQUEST_TIME_MINUTES"/>
             <p-button 
+            class="button"
             icon="pi pi-minus" 
             (onClick)="updateTimeInMinutes = updateTimeInMinutes - STEP_REQUEST_TIME_MINUTES" 
             [disabled]="updateTimeInMinutes <= MIN_REQUEST_TIME_MINUTES"/>
@@ -33,10 +37,12 @@
             <p-knob [(ngModel)] ="numPacketsNeededToDisplay" size="100" readonly="true" [min]="MIN_PACKETS_NEEDED" [max]="MAX_PACKETS_NEEDED"/>
             <p>Display Threshold</p>
             <p-button 
-                icon="pi pi-plus" 
+                class="button"
+                icon="pi pi-plus"
                 (onClick)="numPacketsNeededToDisplay = numPacketsNeededToDisplay + STEP_PACKETS_NEEDED; topIps = getTableData(allIps);" 
                 [disabled]="numPacketsNeededToDisplay >= MAX_PACKETS_NEEDED"/>
-            <p-button 
+            <p-button
+                class="button"
                 icon="pi pi-minus" 
                 (onClick)="numPacketsNeededToDisplay = numPacketsNeededToDisplay - STEP_PACKETS_NEEDED; topIps = getTableData(allIps);" 
                 [disabled]="numPacketsNeededToDisplay <= MIN_PACKETS_NEEDED"/>
