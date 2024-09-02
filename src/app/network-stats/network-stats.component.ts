@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BackendService } from '../Services/backend.service';
+import { repeat, Subscription } from 'rxjs';
 
 export class IpData {
   ip: string;
@@ -27,28 +28,48 @@ export class NetworkStatsComponent {
   MIN_PACKETS_NEEDED: number = 0;
   STEP_PACKETS_NEEDED: number = 2;
 
-
+  backendService: BackendService;
+  currentSubscription: Subscription;
 
 
   topIps: IpData[] = [];
   allIps: IpData[] = [];
 
   updateTimeInMinutes: number = 2;
-  numberOfPacketsPerUpdate: number = 100;
   numPacketsNeededToDisplay: number = 6;
+  numberOfPacketsPerUpdate: number = 100;
 
   constructor(backendService: BackendService) {
-    this.allIps = [
-      {ip: '1', numPackets: 10},
-      {ip: '3', numPackets: 20},
-      {ip: '4', numPackets: 5},
-      {ip: '5', numPackets: 2},
-      {ip: '2', numPackets: 8},
-    ];
-    this.topIps = this.getTableData(this.allIps);
+    this.backendService = backendService;
+    this.currentSubscription = backendService.networkData$.pipe(
+      repeat({delay: this.updateTimeInMinutes * 100})
+    ).subscribe((data: any) => {
+      this.processIncomingNetworkData(data);
+    });
+  }
 
-    backendService.networkData$.subscribe((data) => {
-      console.log(data);
+  /**
+   * Processes the data from the backend to the frontend
+   * @param {any} data The incoming network data 
+   */
+  processIncomingNetworkData(data: any) {
+    data['ips'].forEach((ip: string, i: number) => {
+      this.allIps.push(new IpData(ip, data['packets_per_ip'][i]))
+    });
+    this.topIps = this.getTableData(this.allIps);
+  }
+
+  onRequestSettingsChange(numPacketsChange: number, requestTimeChange: number) {
+    this.numberOfPacketsPerUpdate += numPacketsChange;
+    this.updateTimeInMinutes += requestTimeChange;
+    // Update the service
+    this.backendService.updateNetworkDataUrl(this.numberOfPacketsPerUpdate);
+    this.currentSubscription.unsubscribe();
+
+    this.currentSubscription = this.backendService.networkData$.pipe(
+      repeat({delay: this.updateTimeInMinutes * 100})
+    ).subscribe((data: any) => {
+      this.processIncomingNetworkData(data);
     });
   }
 

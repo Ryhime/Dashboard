@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { interval, Observable, Subscription } from 'rxjs';
+import { interval, Observable, repeat, Subscription } from 'rxjs';
+import { BackendService } from '../Services/backend.service';
 
 enum TableCategory {
   CPU = 'CPU',
@@ -21,7 +22,7 @@ export class ComputerStatsComponent {
 
   MAX_GRAPH_DATA_POINTS: number = 50;
 
-
+  currentSubscription: Subscription;
   currentDataPoints: number = 0;
 
   // https://primeng.org/chart
@@ -36,8 +37,8 @@ export class ComputerStatsComponent {
   latestRamUsage: number = 0;
 
   updateTimeInSeconds: number = 1;
-  updateObservable$: Observable<number>;
-  currentTableUpdateSubscription: Subscription;
+
+  backendService: BackendService;
 
   tableData = {
     labels: Array.from(Array<string>(this.MAX_GRAPH_DATA_POINTS).keys()),
@@ -83,31 +84,42 @@ export class ComputerStatsComponent {
     }
   };
 
-  constructor() {
+  constructor(backendService: BackendService) {
     // Assign Static Values Using Backend Service
     this.cpuCountText = this.UNDEFINED_TEXT;
     this.cpuTypeText = this.UNDEFINED_TEXT;
     this.systemText = this.UNDEFINED_TEXT;
     this.totalRamText = this.UNDEFINED_TEXT;
 
-    // Start Table
-    this.updateObservable$ = interval(this.updateTimeInSeconds * 1000);
-    this.currentTableUpdateSubscription = this.updateObservable$.subscribe(
-      () => {
-        this.addTableData(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100));
+    this.backendService = backendService;
+      // Listen for new computer stats data
+      this.currentSubscription = backendService.computerData$.pipe(repeat({delay: this.updateTimeInSeconds * 1000})).subscribe((data: any) => {
+        this.handleIncomingServiceData(data);
       });
+  }
+
+  /**
+   * Handles when new incoming data is got
+   * @param {any} data The incoming data 
+   */
+  handleIncomingServiceData(data: any) {
+    this.cpuCountText = data['cpu_count'].toString();
+    this.systemText = data['system'].toString();
+    this.cpuTypeText = data['cpu'].toString();
+    this.totalRamText = data['ram_total'].toString();
+
+    this.addTableData(data['cpu_percent'], data['gpu_percent'], data['ram_percent']);
   }
 
   /**
    * Called when the table update time value is changed to re subscribe to the update with the new time
    */
   updateTableObservable() {
-    this.currentTableUpdateSubscription.unsubscribe();
-    this.updateObservable$ = interval(this.updateTimeInSeconds * 1000);
-    this.currentTableUpdateSubscription = this.updateObservable$.subscribe(
-      () => {
-        this.addTableData(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100));
-      });
+    this.currentSubscription.unsubscribe();
+    // Listen for new computer stats data
+    this.currentSubscription = this.backendService.computerData$.pipe(repeat({delay: this.updateTimeInSeconds * 1000})).subscribe((data: any) => {
+      this.handleIncomingServiceData(data);
+    });
   }
 
   /**

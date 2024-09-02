@@ -6,9 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BackendService {
-
+  http: HttpClient;
   networkData$ = new Observable();
-  constructor(http: HttpClient) { 
-    this.networkData$ = http.get('http://www.localhost:5000/network-stats');
+  computerData$ = new Observable();
+
+  constructor(http: HttpClient) {
+    this.http = http;
+    this.networkData$ = http.get(`http://www.localhost:5000/network-stats`);
+    this.computerData$ = http.get('http://www.localhost:5000/computer-stats');
+  }
+
+  updateNetworkDataUrl(numPackets: number) {
+    this.networkData$ = this.http.get(`http://www.localhost:5000/network-stats?numPackets=${numPackets}`)
   }
 }

@@ -38,8 +38,14 @@ def get_packets(num_packets: int):
                 ip_addresses[ip] += 1
         except AttributeError:
             pass
+    ips = list(ip_addresses.keys())
+    packets_per_ips = []
+    for key in ips:
+        packets_per_ips.append(ip_addresses[key])
+
     return {
-        'ips': ip_addresses,
+        'ips': ips,
+        'packets_per_ip': packets_per_ips,
         'numPackets': num_packets
     }
 
@@ -94,7 +100,7 @@ def get_computer_stats():
     gpu_info = GPUInfo.get_info()
     data['gpu_total'] = sum(gpu_info[2])
     data['gpu_used'] = sum(gpu_info[1])
-    data['gpu_percent'] = sum(gpu_info[1])/sum(gpu_info[2])
+    data['gpu_percent'] = round((sum(gpu_info[1])/sum(gpu_info[2])) * 100, 1)
 
     # CPU
     data['cpu_percent'] = psutil.cpu_percent()

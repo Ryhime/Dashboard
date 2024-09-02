@@ -10,12 +10,12 @@
             <p-button 
                 class="button"
                 icon="pi pi-plus" 
-                (onClick)="numberOfPacketsPerUpdate = numberOfPacketsPerUpdate + STEP_NUM_PACKETS_REQUEST" 
-                [disabled]="numberOfPacketsPerUpdate >= MAX_NUM_PACKETS_REQUEST" />
+                (onClick)="onRequestSettingsChange(STEP_NUM_PACKETS_REQUEST, 0)"
+                [disabled]="numberOfPacketsPerUpdate>= MAX_NUM_PACKETS_REQUEST" />
             <p-button 
                 class="button"
                 icon="pi pi-minus" 
-                (onClick)="numberOfPacketsPerUpdate = numberOfPacketsPerUpdate - STEP_NUM_PACKETS_REQUEST" 
+                (onClick)="onRequestSettingsChange(-1 * STEP_NUM_PACKETS_REQUEST, 0)" 
                 [disabled]="numberOfPacketsPerUpdate <= MIN_NUM_PACKETS_REQUEST" />
         </div>
 
@@ -25,12 +25,12 @@
             <p-button 
             class="button"
             icon="pi pi-plus" 
-            (onClick)="updateTimeInMinutes = updateTimeInMinutes + STEP_REQUEST_TIME_MINUTES" 
+            (onClick)="onRequestSettingsChange(0, STEP_REQUEST_TIME_MINUTES)" 
             [disabled]="updateTimeInMinutes >= MAX_REQUEST_TIME_MINUTES"/>
             <p-button 
             class="button"
             icon="pi pi-minus" 
-            (onClick)="updateTimeInMinutes = updateTimeInMinutes - STEP_REQUEST_TIME_MINUTES" 
+            (onClick)="onRequestSettingsChange(0, -1 * STEP_REQUEST_TIME_MINUTES)" 
             [disabled]="updateTimeInMinutes <= MIN_REQUEST_TIME_MINUTES"/>
         </div>
         <div class="setting">
