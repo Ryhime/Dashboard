@@ -102,6 +102,12 @@ export class ComputerStatsComponent {
     return list;
   }
 
+  /**
+   * Adds table data given new incoming data
+   * @param {number} cpuValue The new CPU value
+   * @param {number} gpuValue The new GPU value
+   * @param {number} ramValue The new RAM value
+   */
   addTableData(cpuValue: number, gpuValue: number, ramValue: number): void {
     if (cpuValue < 0 || gpuValue < 0 || ramValue < 0) {
       return;

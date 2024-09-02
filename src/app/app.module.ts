@@ -17,6 +17,7 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { KnobModule } from 'primeng/knob';
 import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FormsModule } from '@angular/forms';
     ChartModule,
     KnobModule,
     FormsModule,
+    TableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

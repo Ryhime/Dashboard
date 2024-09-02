@@ -3,5 +3,20 @@
         <h2>Network</h2>
         <i class="pi pi-wifi header-icon"></i>
     </ng-template>
-    Show network stats here like current packets coming in from python service using graphs and such
+
+    <p-table [value]="topIps">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>IP Address</th>
+                <th>Packets</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ip>
+            <tr>
+                <td>{{ ip.ip }}</td>
+                <td>{{ ip.numPackets }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    
 </p-panel>
