@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { KnobModule } from 'primeng/knob';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { TableModule } from 'primeng/table';
     KnobModule,
     FormsModule,
     TableModule,
+    MenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

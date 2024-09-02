@@ -1,9 +1,17 @@
-.panels{
+.panels {
     display: grid;
     grid-template-columns: 50% 50%;
     gap: 10px;
 }
 
+.panels-left{
+    gap: 10px;
+}
+
+.panels-right{
+    gap: 10px;
+}
+
 .panel {
-    height: fit-content;
+    padding: 10px;
 }
