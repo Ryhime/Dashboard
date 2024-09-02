@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BackendService } from '../Services/backend.service';
 
 export class IpData {
   ip: string;
@@ -36,7 +37,7 @@ export class NetworkStatsComponent {
   numberOfPacketsPerUpdate: number = 100;
   numPacketsNeededToDisplay: number = 6;
 
-  constructor() {
+  constructor(backendService: BackendService) {
     this.allIps = [
       {ip: '1', numPackets: 10},
       {ip: '3', numPackets: 20},
@@ -45,6 +46,10 @@ export class NetworkStatsComponent {
       {ip: '2', numPackets: 8},
     ];
     this.topIps = this.getTableData(this.allIps);
+
+    backendService.networkData$.subscribe((data) => {
+      console.log(data);
+    });
   }
 
   /**

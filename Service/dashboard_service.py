@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request
 from gpuinfo import GPUInfo
 import psutil
 import pyshark
+from flask_cors import CORS
 
 # Google
 from google.auth.transport.requests import Request
@@ -14,6 +15,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 
 DEFAULT_PACKETS_TO_SNIFF = 100
