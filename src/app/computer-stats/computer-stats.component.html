@@ -5,7 +5,7 @@
     </ng-template>
 
     <div class="panel-body">
-        <div class="static-data">
+        <div class="upper-section">
             <div class="setting">
                 <p-knob [(ngModel)]="updateTimeInSeconds" size="100" readonly="true" [min]="MIN_UPDATE_TIME" [max]="MAX_UPDATE_TIME"/>
                 <p>Update Time - Seconds</p>
@@ -20,10 +20,12 @@
             </div>
 
             <!-- CPU Count, CPU Type, System -->
-            <p>CPU Count: {{cpuCountText}}</p>
-            <p>CPU Type: {{cpuTypeText}}</p>
-            <p>System: {{systemText}}</p>
-            <p>RAM Available: {{totalRamText}}</p>
+            <div class="static-data">
+                <p>CPU Count: {{cpuCountText}}</p>
+                <p>CPU Type: {{cpuTypeText}}</p>
+                <p>System: {{systemText}}</p>
+                <p>RAM Available: {{totalRamText}}</p>
+            </div>
         </div>
         <div class="dynamic-data">
             <!-- CPU, GPU, and RAM usage graphs all in one?? -->

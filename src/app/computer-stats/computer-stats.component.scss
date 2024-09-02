@@ -1,15 +1,22 @@
-.knobs {
-    display: flex;
-    justify-content: space-evenly;
+
+.upper-section {
+    display: grid;
+    grid-row: auto auto;
+    grid-template-columns: 30% 70%;
 }
 
 .static-data {
     display: grid;
-    grid-row: auto auto auto;
-    grid-template-columns: 33% 33% 33%;
+    grid-row: auto auto;
+    grid-template-columns: 50% 50%;
 }
 
 .setting {
     text-align: center;
     vertical-align: middle;
+}
+
+.knobs {
+    display: flex;
+    justify-content: space-evenly;
 }
