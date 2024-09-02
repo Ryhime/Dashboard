@@ -26,6 +26,11 @@ export class ComputerStatsComponent {
   cpuCountText: string;
   cpuTypeText: string;
   systemText: string;
+  totalRamText: string;
+
+  latestCpuUsage: number = 0;
+  lastestGpuUsage: number = 0;
+  latestRamUsage: number = 0;
 
   tableData = {
     labels: Array.from(Array<string>(this.MAX_GRAPH_DATA_POINTS).keys()),
@@ -71,6 +76,7 @@ export class ComputerStatsComponent {
     this.cpuCountText = this.UNDEFINED_TEXT;
     this.cpuTypeText = this.UNDEFINED_TEXT;
     this.systemText = this.UNDEFINED_TEXT;
+    this.totalRamText = this.UNDEFINED_TEXT;
 
     // Start Table
     interval(this.MS_TO_UPDATE).subscribe(
@@ -110,12 +116,15 @@ export class ComputerStatsComponent {
       switch (categoryOptions.label) {
         case TableCategory.CPU:
           data[this.currentDataPoints - 1] = cpuValue;
+          this.latestCpuUsage = cpuValue;
           break;
         case TableCategory.GPU:
           data[this.currentDataPoints - 1] = gpuValue;
+          this.lastestGpuUsage = gpuValue;
           break;
         case TableCategory.RAM:
           data[this.currentDataPoints - 1] = ramValue;
+          this.latestRamUsage = ramValue;
           break;
       }
       if (this.currentDataPoints >= this.MAX_GRAPH_DATA_POINTS) {

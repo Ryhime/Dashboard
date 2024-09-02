@@ -15,6 +15,8 @@ import { AppsComponent } from './apps/apps.component';
 import { CommonModule } from '@angular/common';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { KnobModule } from 'primeng/knob';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     ButtonModule,
     HttpClientModule,
     ChartModule,
+    KnobModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

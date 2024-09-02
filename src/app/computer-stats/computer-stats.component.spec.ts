@@ -28,6 +28,7 @@ describe('ComputerStatsComponent', () => {
       expect(component.cpuCountText.length).toBeGreaterThan(0);
       expect(component.cpuTypeText.length).toBeGreaterThan(0);
       expect(component.systemText.length).toBeGreaterThan(0);
+      expect(component.totalRamText.length).toBeGreaterThan(0);
     });
   });
 

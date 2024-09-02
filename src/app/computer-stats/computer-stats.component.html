@@ -11,11 +11,26 @@
                 <p>CPU Count: {{cpuCountText}}</p>
                 <p>CPU Type: {{cpuTypeText}}</p>
                 <p>System: {{systemText}}</p>
+                <p>RAM Available: {{totalRamText}}</p>
              </span>
         </div>
         <div class="dynamic-data">
             <!-- CPU, GPU, and RAM usage graphs all in one?? -->
              <p-chart type="line" [data]="tableData" [options]="tableOptions"></p-chart>
+             <div class="knobs">
+                <div>
+                    <p-knob [(ngModel)]="latestCpuUsage"></p-knob>
+                    <p>CPU Usage</p>
+                </div>
+                <div>
+                    <p-knob [(ngModel)]="lastestGpuUsage"></p-knob>
+                    <p>GPU Usage</p>
+                </div>
+                <div>
+                    <p-knob [(ngModel)]="latestRamUsage"></p-knob>
+                    <p>RAM Usage</p>
+                </div>
+             </div>
         </div>
     </div>
 </p-panel>
