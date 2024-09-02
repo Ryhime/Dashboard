@@ -24,6 +24,7 @@ Service: Service/dashboard_service.py
 <br>
 Postman Tests: Service/BackendPostmanTests.json
 <br>
+<br>
 To run: python3 Service/dashboard_service.py
 
 ## Frontend
