@@ -16,7 +16,10 @@ export class ComputerStatsComponent {
 
   UNDEFINED_TEXT: string = 'Loading...';
   NULL_TEXT: string = 'Data Not Found';
-  MIN_UPDATE_SPEED: number = .5;
+  MIN_UPDATE_TIME: number = .5;
+  MAX_UPDATE_TIME: number = 5;
+  TIME_UPDATE_INCREMENT: number = .5;
+
   MAX_GRAPH_DATA_POINTS: number = 50;
 
 
@@ -95,7 +98,7 @@ export class ComputerStatsComponent {
    * Called when the table update time value is changed to re subscribe to the update with the new time
    */
   updateTableObservable() {
-    if (this.updateTimeInSeconds < this.MIN_UPDATE_SPEED) {
+    if (this.updateTimeInSeconds < this.MIN_UPDATE_TIME) {
       return;
     }
     this.currentTableUpdateSubscription.unsubscribe();

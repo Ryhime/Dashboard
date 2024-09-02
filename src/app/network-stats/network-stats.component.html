@@ -4,26 +4,45 @@
         <i class="pi pi-wifi header-icon"></i>
     </ng-template>
     <div class="settings">
-        <div>
-            <p>Update Time - Seconds</p>
-            <p-inputNumber
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-                mode="decimal"
-                [maxFractionDigits]="2"
-                [(ngModel)]="updateTimeInSeconds"
-            ></p-inputNumber>
+        <div class="setting">
+            <p-knob [(ngModel)]="numberOfPacketsPerUpdate" size="100" readonly="true" [min]="MIN_NUM_PACKETS_REQUEST" [max]="MAX_NUM_PACKETS_REQUEST"/>
+            <p>Packets Per Request</p>
+            <p-button 
+                icon="pi pi-plus" 
+                (onClick)="numberOfPacketsPerUpdate = numberOfPacketsPerUpdate + STEP_NUM_PACKETS_REQUEST" 
+                [disabled]="numberOfPacketsPerUpdate >= MAX_NUM_PACKETS_REQUEST" />
+            <p-button 
+                icon="pi pi-minus" 
+                (onClick)="numberOfPacketsPerUpdate = numberOfPacketsPerUpdate - STEP_NUM_PACKETS_REQUEST" 
+                [disabled]="numberOfPacketsPerUpdate <= MIN_NUM_PACKETS_REQUEST" />
         </div>
-        <div>
-            <p>Packets Per Request<p>
-            <p-inputNumber
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-                [(ngModel)]="numberOfPacketsPerUpdate"
-            ></p-inputNumber>
+
+        <div class="setting">
+            <p-knob [(ngModel)]="updateTimeInMinutes" size="100" readonly="true" [min]="MIN_REQUEST_TIME_MINUTES" [max]="MAX_REQUEST_TIME_MINUTES"/>
+            <p>Request Time - Minutes</p>
+            <p-button 
+            icon="pi pi-plus" 
+            (onClick)="updateTimeInMinutes = updateTimeInMinutes + STEP_REQUEST_TIME_MINUTES" 
+            [disabled]="updateTimeInMinutes >= MAX_REQUEST_TIME_MINUTES"/>
+            <p-button 
+            icon="pi pi-minus" 
+            (onClick)="updateTimeInMinutes = updateTimeInMinutes - STEP_REQUEST_TIME_MINUTES" 
+            [disabled]="updateTimeInMinutes <= MIN_REQUEST_TIME_MINUTES"/>
+        </div>
+        <div class="setting">
+            <p-knob [(ngModel)] ="numPacketsNeededToDisplay" size="100" readonly="true" [min]="MIN_PACKETS_NEEDED" [max]="MAX_PACKETS_NEEDED"/>
+            <p>Display Threshold</p>
+            <p-button 
+                icon="pi pi-plus" 
+                (onClick)="numPacketsNeededToDisplay = numPacketsNeededToDisplay + STEP_PACKETS_NEEDED; topIps = getTableData(allIps);" 
+                [disabled]="numPacketsNeededToDisplay >= MAX_PACKETS_NEEDED"/>
+            <p-button 
+                icon="pi pi-minus" 
+                (onClick)="numPacketsNeededToDisplay = numPacketsNeededToDisplay - STEP_PACKETS_NEEDED; topIps = getTableData(allIps);" 
+                [disabled]="numPacketsNeededToDisplay <= MIN_PACKETS_NEEDED"/>
         </div>
     </div>
-
+<br>
     <p-table [value]="topIps">
         <ng-template pTemplate="header">
             <tr>

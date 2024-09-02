@@ -5,6 +5,11 @@
 
 .static-data {
     display: grid;
-    grid-row: auto auto;
-    grid-template-columns: 50% 50%;
+    grid-row: auto auto auto;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.setting {
+    text-align: center;
+    vertical-align: middle;
 }

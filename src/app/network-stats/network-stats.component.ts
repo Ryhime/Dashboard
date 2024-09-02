@@ -10,21 +10,37 @@ export class IpData {
   styleUrl: './network-stats.component.scss'
 })
 export class NetworkStatsComponent {
-  NUM_PACKETS_NEEDED_TO_DISPLAY = 5; // Setting??
-  topIps: IpData[] = [];
+  MAX_NUM_PACKETS_REQUEST: number = 200;
+  MIN_NUM_PACKETS_REQUEST: number = 10;
+  STEP_NUM_PACKETS_REQUEST: number = 10;
 
-  updateTimeInSeconds: number = 60;
+  MAX_REQUEST_TIME_MINUTES: number = 10;
+  MIN_REQUEST_TIME_MINUTES: number = 1;
+  STEP_REQUEST_TIME_MINUTES: number = 1;
+
+  MAX_PACKETS_NEEDED: number = 20;
+  MIN_PACKETS_NEEDED: number = 0;
+  STEP_PACKETS_NEEDED: number = 2;
+
+
+
+
+  topIps: IpData[] = [];
+  allIps: IpData[] = [];
+
+  updateTimeInMinutes: number = 2;
   numberOfPacketsPerUpdate: number = 100;
+  numPacketsNeededToDisplay: number = 6;
 
   constructor() {
-    const allIps = [
-      {ip: '1', numPackets: 100},
-      {ip: '3', numPackets: 80},
-      {ip: '4', numPackets: 70},
-      {ip: '5', numPackets: 60},
-      {ip: '2', numPackets: 90},
+    this.allIps = [
+      {ip: '1', numPackets: 10},
+      {ip: '3', numPackets: 20},
+      {ip: '4', numPackets: 5},
+      {ip: '5', numPackets: 2},
+      {ip: '2', numPackets: 8},
     ];
-    this.topIps = this.getTableData(allIps);
+    this.topIps = this.getTableData(this.allIps);
   }
 
   /**
@@ -36,7 +52,7 @@ export class NetworkStatsComponent {
     return allIps.sort((ip1: IpData, ip2: IpData) => {
       return ip2.numPackets - ip1.numPackets;
     }).filter((ip: IpData) => {
-      return ip.numPackets >= this.NUM_PACKETS_NEEDED_TO_DISPLAY;
+      return ip.numPackets >= this.numPacketsNeededToDisplay;
     });
   }
 }
