@@ -43,6 +43,14 @@ describe('TasksPanelComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('Task class', () => {
+    it('should create with given params', () => {
+      const task: Task = new Task(true, 'Hello!');
+      expect(task.starred).toEqual(true);
+      expect(task.text).toEqual('Hello!');
+    });
+  });
+
   describe('ngOnInit', () => {
     it('should sort the daily tasks', () => {
       // Arrange

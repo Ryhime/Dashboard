@@ -2,8 +2,12 @@ import {Component, OnInit} from '@angular/core';
 
 
 export class Task{
-  starred: boolean = false;
-  text: string = '';
+  starred: boolean;
+  text: string;
+  constructor(starred: boolean, text: string) {
+    this.starred = starred;
+    this.text = text;
+  }
 }
 
 @Component({

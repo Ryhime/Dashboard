@@ -98,9 +98,6 @@ export class ComputerStatsComponent {
    * Called when the table update time value is changed to re subscribe to the update with the new time
    */
   updateTableObservable() {
-    if (this.updateTimeInSeconds < this.MIN_UPDATE_TIME) {
-      return;
-    }
     this.currentTableUpdateSubscription.unsubscribe();
     this.updateObservable$ = interval(this.updateTimeInSeconds * 1000);
     this.currentTableUpdateSubscription = this.updateObservable$.subscribe(

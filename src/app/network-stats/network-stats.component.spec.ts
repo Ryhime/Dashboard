@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NetworkStatsComponent } from './network-stats.component';
+import { IpData, NetworkStatsComponent } from './network-stats.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NetworkStatsComponent', () => {
@@ -23,6 +23,14 @@ describe('NetworkStatsComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('IpData Class', () => {
+    it('should create with params', () => {
+      const data: IpData = new IpData('myIp', 500);
+      expect(data.ip).toEqual('myIp');
+      expect(data.numPackets).toEqual(500);
+    });
+  });
+
   describe('getTableData', () => {
     it('should return empty array on empty array', () => {
       const actual = component.getTableData([]);
@@ -30,7 +38,7 @@ describe('NetworkStatsComponent', () => {
     });
 
     it('should filter out everything if no entries have enough packets', () => {
-      component.NUM_PACKETS_NEEDED_TO_DISPLAY = 200;
+      component.numPacketsNeededToDisplay = 200;
       const ips = [
         {ip: '1', numPackets: 100},
         {ip: '3', numPackets: 80},
@@ -45,7 +53,7 @@ describe('NetworkStatsComponent', () => {
     });
 
     it('should filter properly and sort for entries that have enough packets', () => {
-      component.NUM_PACKETS_NEEDED_TO_DISPLAY = 70;
+      component.numPacketsNeededToDisplay = 70;
       const ips = [
         {ip: '1', numPackets: 100},
         {ip: '3', numPackets: 80},

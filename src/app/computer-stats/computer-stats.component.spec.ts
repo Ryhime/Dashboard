@@ -32,6 +32,15 @@ describe('ComputerStatsComponent', () => {
     });
   });
 
+  describe('updateTableObservable', () => {
+    it('should subscribe again after being called', () => {
+      component.updateTimeInSeconds = 3;
+      component.currentTableUpdateSubscription.unsubscribe();
+      component.updateTableObservable();
+      expect(component.currentTableUpdateSubscription.closed).toEqual(false);
+    });
+  });
+
   describe('shiftListOneIndexToLeft', () => {
     it('should shift nothing for empty', () => {
       const list: number[] = [];

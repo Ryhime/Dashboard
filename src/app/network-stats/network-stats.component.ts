@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 
 export class IpData {
-  ip: string = '';
-  numPackets: number = 0;
+  ip: string;
+  numPackets: number;
+  constructor(ip: string, numPackets: number) {
+    this.ip = ip;
+    this.numPackets = numPackets;
+  }
 }
 @Component({
   selector: 'app-network-stats',

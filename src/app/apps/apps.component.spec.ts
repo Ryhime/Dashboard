@@ -22,4 +22,14 @@ describe('AppsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onClickButtonUrl', () => {
+    it('should call window.open with the correct url', () => {
+      spyOn(window, 'open');
+      
+      const url: string = 'https://www.google.com';
+      component.onClickButtonUrl(url);
+      expect(window.open).toHaveBeenCalledWith(url, '_blank');
+    });
+  });
 });
