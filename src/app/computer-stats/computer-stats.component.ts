@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 
 enum TableCategory {
   CPU = 'CPU',
@@ -16,8 +16,9 @@ export class ComputerStatsComponent {
 
   UNDEFINED_TEXT: string = 'Loading...';
   NULL_TEXT: string = 'Data Not Found';
+  MIN_UPDATE_SPEED: number = .5;
   MAX_GRAPH_DATA_POINTS: number = 50;
-  MS_TO_UPDATE: number = 1000;
+
 
   currentDataPoints: number = 0;
 
@@ -31,6 +32,10 @@ export class ComputerStatsComponent {
   latestCpuUsage: number = 0;
   lastestGpuUsage: number = 0;
   latestRamUsage: number = 0;
+
+  updateTimeInSeconds: number = 1;
+  updateObservable$: Observable<number>;
+  currentTableUpdateSubscription: Subscription;
 
   tableData = {
     labels: Array.from(Array<string>(this.MAX_GRAPH_DATA_POINTS).keys()),
@@ -79,7 +84,23 @@ export class ComputerStatsComponent {
     this.totalRamText = this.UNDEFINED_TEXT;
 
     // Start Table
-    interval(this.MS_TO_UPDATE).subscribe(
+    this.updateObservable$ = interval(this.updateTimeInSeconds * 1000);
+    this.currentTableUpdateSubscription = this.updateObservable$.subscribe(
+      () => {
+        this.addTableData(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100));
+      });
+  }
+
+  /**
+   * Called when the table update time value is changed to re subscribe to the update with the new time
+   */
+  updateTableObservable() {
+    if (this.updateTimeInSeconds < this.MIN_UPDATE_SPEED) {
+      return;
+    }
+    this.currentTableUpdateSubscription.unsubscribe();
+    this.updateObservable$ = interval(this.updateTimeInSeconds * 1000);
+    this.currentTableUpdateSubscription = this.updateObservable$.subscribe(
       () => {
         this.addTableData(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100));
       });

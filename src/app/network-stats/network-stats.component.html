@@ -3,6 +3,26 @@
         <h2>Network</h2>
         <i class="pi pi-wifi header-icon"></i>
     </ng-template>
+    <div class="settings">
+        <div>
+            <p>Update Time - Seconds</p>
+            <p-inputNumber
+                inputId="withoutgrouping"
+                [useGrouping]="false"
+                mode="decimal"
+                [maxFractionDigits]="2"
+                [(ngModel)]="updateTimeInSeconds"
+            ></p-inputNumber>
+        </div>
+        <div>
+            <p>Packets Per Request<p>
+            <p-inputNumber
+                inputId="withoutgrouping"
+                [useGrouping]="false"
+                [(ngModel)]="numberOfPacketsPerUpdate"
+            ></p-inputNumber>
+        </div>
+    </div>
 
     <p-table [value]="topIps">
         <ng-template pTemplate="header">

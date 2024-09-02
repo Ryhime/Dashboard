@@ -19,6 +19,8 @@ import { KnobModule } from 'primeng/knob';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { MenuModule } from 'primeng/menu';
     FormsModule,
     TableModule,
     MenuModule,
+    InputNumberModule,
+    FloatLabelModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

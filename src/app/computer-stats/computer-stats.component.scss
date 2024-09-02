@@ -2,3 +2,9 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.static-data {
+    display: grid;
+    grid-row: auto auto;
+    grid-template-columns: 50% 50%;
+}

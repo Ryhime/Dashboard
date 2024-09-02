@@ -10,8 +10,11 @@ export class IpData {
   styleUrl: './network-stats.component.scss'
 })
 export class NetworkStatsComponent {
-  NUM_PACKETS_NEEDED_TO_DISPLAY = 5;
+  NUM_PACKETS_NEEDED_TO_DISPLAY = 5; // Setting??
   topIps: IpData[] = [];
+
+  updateTimeInSeconds: number = 60;
+  numberOfPacketsPerUpdate: number = 100;
 
   constructor() {
     const allIps = [

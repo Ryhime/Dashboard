@@ -5,29 +5,37 @@
     </ng-template>
 
     <div class="panel-body">
+        <p>Table Update Time<p>
+        <p-inputNumber
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+            mode="decimal"
+            [maxFractionDigits]="2"
+            [(ngModel)]="updateTimeInSeconds"
+            (onInput)="updateTableObservable()"
+        ></p-inputNumber>
+
         <div class="static-data">
             <!-- CPU Count, CPU Type, System -->
-             <span>
-                <p>CPU Count: {{cpuCountText}}</p>
-                <p>CPU Type: {{cpuTypeText}}</p>
-                <p>System: {{systemText}}</p>
-                <p>RAM Available: {{totalRamText}}</p>
-             </span>
+            <p>CPU Count: {{cpuCountText}}</p>
+            <p>CPU Type: {{cpuTypeText}}</p>
+            <p>System: {{systemText}}</p>
+            <p>RAM Available: {{totalRamText}}</p>
         </div>
         <div class="dynamic-data">
             <!-- CPU, GPU, and RAM usage graphs all in one?? -->
              <p-chart type="line" [data]="tableData" [options]="tableOptions"></p-chart>
              <div class="knobs">
                 <div>
-                    <p-knob [(ngModel)]="latestCpuUsage"></p-knob>
+                    <p-knob [(ngModel)]="latestCpuUsage" valueTemplate="{value}%"></p-knob>
                     <p>CPU Usage</p>
                 </div>
                 <div>
-                    <p-knob [(ngModel)]="lastestGpuUsage"></p-knob>
+                    <p-knob [(ngModel)]="lastestGpuUsage" valueTemplate="{value}%"></p-knob>
                     <p>GPU Usage</p>
                 </div>
                 <div>
-                    <p-knob [(ngModel)]="latestRamUsage"></p-knob>
+                    <p-knob [(ngModel)]="latestRamUsage" valueTemplate="{value}%"></p-knob>
                     <p>RAM Usage</p>
                 </div>
              </div>
