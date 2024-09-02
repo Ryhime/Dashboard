@@ -23,6 +23,9 @@ Built in Python using Flask no database is used for now to keep the project more
 Service: Service/dashboard_service.py
 <br>
 Postman Tests: Service/BackendPostmanTests.json
+<br>
+<br>
+To run: <code>python3 Service/dashboard_service.py</code>
 
 ## Frontend
 Built in Angular. Uses unit tests to test different components using Jasmine. There are four tabs on the frontend:
@@ -34,4 +37,4 @@ Built in Angular. Uses unit tests to test different components using Jasmine. Th
   <li>Applications</li>
 </ul>
 <br>
-To run: ng serve --port {localPortNumber}
+To run: <code>ng serve --port {localPortNumber}</code>
