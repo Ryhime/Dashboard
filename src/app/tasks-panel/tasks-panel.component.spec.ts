@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TasksPanelComponent } from './tasks-panel.component';
@@ -58,6 +59,59 @@ describe('TasksPanelComponent', () => {
       const task: Task = new Task(true, 'Hello!');
       expect(task.starred).toEqual(true);
       expect(task.text).toEqual('Hello!');
+    });
+  });
+
+  describe('processIncomingTaskData', () => {
+
+    beforeEach(() => {
+      component.dailyTasks = [new Task(false, '')];
+      component.todaysTasks = [new Task(true, 'HELLO!!')];
+    });
+
+    it('should set both lists to nothing if no data', () => {
+      component.processIncomingTaskData(null);
+
+      expect(component.dailyTasks).toEqual([]);
+      expect(component.todaysTasks).toEqual([]);
+    });
+
+    it('should set to nothing if there is no task lists in the data', () => {
+      const data: any = [];
+      
+      component.processIncomingTaskData(data);
+
+      expect(component.dailyTasks).toEqual([]);
+      expect(component.todaysTasks).toEqual([]);
+    });
+
+    it('should update the tasks with dailies and todays tasks', () => {
+      spyOn(component, 'sortTasks').and.callThrough();
+      const data: any = [
+        [{
+          'title': component.DAILY_TASK_TITLE
+        }, 
+          [
+            {'title': 'B'},
+            {'title': 'A'},
+          ],
+        ],
+        [{
+          'title': 'NOT'
+        },[
+          {'title': 'C'},
+          {'title': 'B'}
+        ]]
+      ];
+
+      const expectedDaily: Task[] = [new Task(false, 'A'), new Task(false, 'B')];
+      const expectedToday: Task[] = [new Task(false, 'B'), new Task(false, 'C')];
+
+      component.processIncomingTaskData(data);
+
+      expect(component.dailyTasks).toEqual(expectedDaily);
+      expect(component.todaysTasks).toEqual(expectedToday);
+      expect(component.sortTasks).toHaveBeenCalledTimes(2);
     });
   });
 
