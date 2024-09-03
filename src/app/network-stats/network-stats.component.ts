@@ -28,19 +28,19 @@ export class NetworkStatsComponent {
   MIN_PACKETS_NEEDED: number = 0;
   STEP_PACKETS_NEEDED: number = 2;
 
-  backendService: BackendService;
-  currentSubscription: Subscription;
-
-
-  topIps: IpData[] = [];
-  allIps: IpData[] = [];
-
   updateTimeInMinutes: number = 2;
   numPacketsNeededToDisplay: number = 6;
   numberOfPacketsPerUpdate: number = 100;
 
+  backendService: BackendService;
+  currentSubscription: Subscription;
+
+  topIps: IpData[] = [];
+  allIps: IpData[] = [];
+
   constructor(backendService: BackendService) {
     this.backendService = backendService;
+    // Start Network Subscription
     this.currentSubscription = backendService.networkData$.pipe(
       repeat({delay: this.updateTimeInMinutes * 100})
     ).subscribe((data: any) => {
@@ -50,22 +50,33 @@ export class NetworkStatsComponent {
 
   /**
    * Processes the data from the backend to the frontend
-   * @param {any} data The incoming network data 
+   * @param {any | null} data The incoming network data 
    */
-  processIncomingNetworkData(data: any) {
+  processIncomingNetworkData(data?: any | null) {
+    if (!data) {
+      return;
+    }
+    this.allIps = [];
     data['ips'].forEach((ip: string, i: number) => {
       this.allIps.push(new IpData(ip, data['packets_per_ip'][i]))
     });
+
     this.topIps = this.getTableData(this.allIps);
   }
 
+  /**
+   * Called when setting knobs are updated
+   * @param {number} numPacketsChange The change in packets to request
+   * @param {number} requestTimeChange The change in request time
+   */
   onRequestSettingsChange(numPacketsChange: number, requestTimeChange: number) {
+    // Update component values
     this.numberOfPacketsPerUpdate += numPacketsChange;
     this.updateTimeInMinutes += requestTimeChange;
     // Update the service
     this.backendService.updateNetworkDataUrl(this.numberOfPacketsPerUpdate);
     this.currentSubscription.unsubscribe();
-
+    // Update Subscription
     this.currentSubscription = this.backendService.networkData$.pipe(
       repeat({delay: this.updateTimeInMinutes * 100})
     ).subscribe((data: any) => {

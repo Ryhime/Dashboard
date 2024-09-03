@@ -2,13 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IpData, NetworkStatsComponent } from './network-stats.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { BackendService } from '../Services/backend.service';
+import { Observable } from 'rxjs';
 
 describe('NetworkStatsComponent', () => {
   let component: NetworkStatsComponent;
   let fixture: ComponentFixture<NetworkStatsComponent>;
 
+  let mockBackendService: any;
+
   beforeEach(async () => {
+    mockBackendService = jasmine.createSpyObj('BackendService' ,['networkData$', 'updateNetworkDataUrl']);
+    mockBackendService['networkData$'] = new Observable();
+
     await TestBed.configureTestingModule({
+      providers: [
+        {provide: BackendService, useValue: mockBackendService},
+      ],
       declarations: [NetworkStatsComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -28,6 +38,63 @@ describe('NetworkStatsComponent', () => {
       const data: IpData = new IpData('myIp', 500);
       expect(data.ip).toEqual('myIp');
       expect(data.numPackets).toEqual(500);
+    });
+  });
+
+  describe('processIncomingNetworkData', () => {
+    it('should update all Ips and assign table data when there is new data', () => {
+      spyOn(component, 'getTableData');
+      component.allIps = [];
+      component.topIps = [];
+      const data = {
+        'ips': ['A', 'B'],
+        'packets_per_ip': [1, 2],
+      };
+
+      component.processIncomingNetworkData(data);
+
+      expect(component.getTableData).toHaveBeenCalled();
+      expect(component.allIps[0].ip).toEqual('A');
+      expect(component.allIps[1].ip).toEqual('B');
+    });
+    
+    it('should not assign all ips and not reassign new table data when there is no new data', () => {
+      spyOn(component, 'getTableData');
+      component.allIps.push(new IpData('A', 5));
+      component.allIps.push(new IpData('B', 6));
+
+      component.topIps = [];
+
+      component.processIncomingNetworkData(null);
+
+      expect(component.getTableData).not.toHaveBeenCalled();
+      expect(component.topIps).toEqual([]);
+      expect(component.allIps[0].ip).toEqual('A');
+      expect(component.allIps[1].ip).toEqual('B');
+    });
+  });
+
+  describe('onRequestSettingsChange', () => {
+    it('should update the number of packets and update time for positive values', () => {
+      component.numberOfPacketsPerUpdate = 5;
+      component.updateTimeInMinutes = 5;
+
+      component.onRequestSettingsChange(5, 5);
+
+      expect(component.numberOfPacketsPerUpdate).toEqual(10);
+      expect(component.updateTimeInMinutes).toEqual(10);
+      expect(mockBackendService['updateNetworkDataUrl']).toHaveBeenCalled();
+    });
+
+    it('should update for negative values', () => {
+      component.numberOfPacketsPerUpdate = 5;
+      component.updateTimeInMinutes = 5;
+
+      component.onRequestSettingsChange(-5, -5);
+
+      expect(component.numberOfPacketsPerUpdate).toEqual(0);
+      expect(component.updateTimeInMinutes).toEqual(0);
+      expect(mockBackendService['updateNetworkDataUrl']).toHaveBeenCalled();
     });
   });
 

@@ -100,9 +100,16 @@ export class ComputerStatsComponent {
 
   /**
    * Handles when new incoming data is got
-   * @param {any} data The incoming data 
+   * @param {any | null} data The incoming data 
    */
-  handleIncomingServiceData(data: any) {
+  handleIncomingServiceData(data?: any | null) {
+    if (!data) {
+      this.cpuCountText = this.NULL_TEXT;
+      this.systemText = this.NULL_TEXT;
+      this.cpuTypeText = this.NULL_TEXT;
+      this.totalRamText = this.NULL_TEXT;
+      return;
+    }
     this.cpuCountText = data['cpu_count'].toString();
     this.systemText = data['system'].toString();
     this.cpuTypeText = data['cpu'].toString();
