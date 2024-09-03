@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component} from '@angular/core';
+import { BackendService } from '../Services/backend.service';
+import { take } from 'rxjs';
 
 
 export class Task{
@@ -15,26 +18,45 @@ export class Task{
   templateUrl: './tasks-panel.component.html',
   styleUrl: './tasks-panel.component.scss',
 })
-export class TasksPanelComponent implements OnInit{
-  // NOTE COULD HAVE SOMETHING LIKE A STREAK FOR DAILIES
-  dailyTasks: Task[] = [
-    {'starred': false, 'text': 'Not Starred'},
-    {'starred': true, 'text': 'Starred 1'},
-    {'starred': true, 'text': 'Starred 2'},
-    {'starred': false, 'text': 'Not Starred 2'},
-  ];
-  todaysTasks: Task[] = [
-    {'starred': true, 'text': 'starred task'},
-    {'starred': false, 'text': 'starred task'},
-    {'starred': true, 'text': 'starred task'},
-    {'starred': true, 'text': 'starred task'},
-    {'starred': false, 'text': 'starred task'},
-    {'starred': true, 'text': 'starred task'},
-  ];
+export class TasksPanelComponent {
+  DAILY_TASK_TITLE: string = 'Dailies';
 
-  ngOnInit(): void {
-    this.dailyTasks = this.sortTasks(this.dailyTasks);
-    this.todaysTasks = this.sortTasks(this.todaysTasks);
+  // NOTE COULD HAVE SOMETHING LIKE A STREAK FOR DAILIES
+  dailyTasks: Task[] = [];
+  todaysTasks: Task[] = [];
+
+  constructor(backendService: BackendService) {
+    backendService.tasksData$.pipe(take(1)).subscribe((data: any) => {
+      this.processIncomingTaskData(data);
+    });
+  }
+
+  /**
+   * Processes new task data
+   */
+  processIncomingTaskData(data: any) {
+    // Daily
+    const dailyList: any = data.find((list: any) => list[0]['title'] === 'Dailies');
+    if (dailyList) {
+      dailyList[1].forEach((task: any) => {
+        this.dailyTasks.push(new Task(false, task['title']));
+      });
+      this.dailyTasks = this.sortTasks(this.dailyTasks);
+    } else {
+      this.dailyTasks = [];
+    }
+
+    // Todays
+    const todaysList: any = data.find((list: any) => list[0]['title'] !== 'Dailies');
+
+    if (todaysList[0]['title'] !== 'Dailies') {
+      todaysList[1].forEach((task: any) => {
+        this.todaysTasks.push(new Task(false, task['title']));
+      });
+      this.todaysTasks = this.sortTasks(this.todaysTasks);
+    } else {
+      this.todaysTasks = [];
+    }
   }
 
   sortTasks(tasks: Task[]): Task[] {

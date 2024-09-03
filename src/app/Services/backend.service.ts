@@ -10,11 +10,13 @@ export class BackendService {
   
   networkData$ = new Observable();
   computerData$ = new Observable();
+  tasksData$ = new Observable();
 
   constructor(http: HttpClient) {
     this.http = http;
     this.networkData$ = http.get(`http://www.localhost:5000/network-stats`);
     this.computerData$ = http.get('http://www.localhost:5000/computer-stats');
+    this.tasksData$ = http.get('http://www.localhost:5000/tasks');
   }
 
   /**

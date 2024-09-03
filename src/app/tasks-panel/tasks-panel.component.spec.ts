@@ -3,10 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TasksPanelComponent } from './tasks-panel.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Task } from './tasks-panel.component';
+import { BackendService } from '../Services/backend.service';
+import { Observable } from 'rxjs';
 
 describe('TasksPanelComponent', () => {
   let component: TasksPanelComponent;
   let fixture: ComponentFixture<TasksPanelComponent>;
+
+  let mockBackendService;
 
   function getTaskTestData(): Task[] {
     return [
@@ -28,7 +32,13 @@ describe('TasksPanelComponent', () => {
   }
 
   beforeEach(async () => {
+    mockBackendService = jasmine.createSpyObj('BackendService', ['tasksData$']);
+    mockBackendService['tasksData$'] = new Observable();
+    
     await TestBed.configureTestingModule({
+      providers: [
+        {provide: BackendService, useValue: mockBackendService},
+      ],
       declarations: [TasksPanelComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -48,32 +58,6 @@ describe('TasksPanelComponent', () => {
       const task: Task = new Task(true, 'Hello!');
       expect(task.starred).toEqual(true);
       expect(task.text).toEqual('Hello!');
-    });
-  });
-
-  describe('ngOnInit', () => {
-    it('should sort the daily tasks', () => {
-      // Arrange
-      component.dailyTasks = getTaskTestData().slice(5);
-
-      // Act
-      const expected = component.sortTasks(component.dailyTasks);
-      component.ngOnInit();
-
-      // Assert
-      expect(expected).toEqual(component.dailyTasks);
-    });
-
-    it('should sort todays tasks', () => {
-      // Arrange
-      component.todaysTasks = getTaskTestData();
-
-      // Act
-      const expected = component.sortTasks(component.todaysTasks);
-      component.ngOnInit();
-
-      // Assert
-      expect(expected).toEqual(component.todaysTasks);
     });
   });
 
