@@ -21,10 +21,21 @@
 
             <!-- CPU Count, CPU Type, System -->
             <div class="static-data">
-                <p>CPU Count: {{cpuCountText}}</p>
-                <p>CPU Type: {{cpuTypeText}}</p>
-                <p>System: {{systemText}}</p>
-                <p>Total RAM: {{totalRamText}}</p>
+                <p *ngIf="cpuCountText">CPU Count: {{cpuCountText}}</p>
+                <p *ngIf="cpuCountText === undefined">CPU Count: <i class="pi pi-spinner pi-spin" title="Loading"></i></p>
+                <p *ngIf="cpuCountText === null">CPU Count: <i class="pi pi-exclamation-triangle" title="Unable to Load CPU Count"></i></p>
+
+                <p *ngIf="cpuTypeText">CPU Type: {{cpuTypeText}}</p>
+                <p *ngIf="cpuTypeText === undefined">CPU Type: <i class="pi pi-spinner pi-spin" title="Loading"></i></p>
+                <p *ngIf="cpuTypeText === null">CPU Type: <i class="pi pi-exclamation-triangle" title="Unable to Load CPU Type"></i></p>
+
+                <p *ngIf="systemText">System: {{systemText}}</p>
+                <p *ngIf="systemText === undefined">System: <i class="pi pi-spinner pi-spin" title="Loading"></i></p>
+                <p *ngIf="systemText === null">System: <i class="pi pi-exclamation-triangle" title="Unable to Load System Type"></i></p>
+                
+                <p *ngIf="totalRamText">Total RAM: {{totalRamText}}</p>
+                <p *ngIf="totalRamText === undefined">Total RAM: <i class="pi pi-spinner pi-spin" title="Loading"></i></p>
+                <p *ngIf="totalRamText === null">Total RAM: <i class="pi pi-exclamation-triangle" title="Unable to Load Total RAM"></i></p>
             </div>
         </div>
         <div class="dynamic-data">

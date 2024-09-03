@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Component} from '@angular/core';
 import { BackendService } from '../Services/backend.service';
-import { take } from 'rxjs';
+import { catchError, of, take } from 'rxjs';
 
 
 export class Task{
@@ -22,11 +22,11 @@ export class TasksPanelComponent {
   DAILY_TASK_TITLE: string = 'Dailies';
 
   // NOTE COULD HAVE SOMETHING LIKE A STREAK FOR DAILIES
-  dailyTasks: Task[] = [];
-  todaysTasks: Task[] = [];
+  dailyTasks: Task[] | undefined | null = [];
+  todaysTasks: Task[] | undefined | null = [];
 
   constructor(backendService: BackendService) {
-    backendService.tasksData$.pipe(take(1)).subscribe((data: any) => {
+    backendService.tasksData$.pipe(take(1), catchError(() => of(null))).subscribe((data: any) => {
       this.processIncomingTaskData(data);
     });
   }
@@ -36,28 +36,33 @@ export class TasksPanelComponent {
    * @param {any | null} data The new data coming in 
    */
   processIncomingTaskData(data: any | null) {
-    this.dailyTasks = [];
-    this.todaysTasks = [];
-
     if (!data) {
+      this.dailyTasks = null;
+      this.todaysTasks = null;
       return;
     }
     // Daily
     const dailyList: any = data.find((list: any) => list[0]['title'] === this.DAILY_TASK_TITLE);
     if (dailyList) {
+      this.dailyTasks = [];
       dailyList[1].forEach((task: any) => {
-        this.dailyTasks.push(new Task(false, task['title']));
+        this.dailyTasks!.push(new Task(false, task['title']));
       });
       this.dailyTasks = this.sortTasks(this.dailyTasks);
+    } else {
+      this.dailyTasks = null;
     }
 
     // Todays
     const todaysList: any = data.find((list: any) => list[0]['title'] !== this.DAILY_TASK_TITLE);
     if (todaysList) {
+      this.todaysTasks = [];
       todaysList[1].forEach((task: any) => {
-        this.todaysTasks.push(new Task(false, task['title']));
+        this.todaysTasks!.push(new Task(false, task['title']));
       });
       this.todaysTasks = this.sortTasks(this.todaysTasks);
+    } else {
+      this.todaysTasks = null;
     }
   }
 
@@ -81,7 +86,10 @@ export class TasksPanelComponent {
    * @param {number} index The index of the task 
    */
   onClickStar(isDaily: boolean, index: number): void {
-    const target: Task[] = isDaily ? this.dailyTasks : this.todaysTasks;
+    const target: Task[] | null | undefined = isDaily ? this.dailyTasks : this.todaysTasks;
+    if (!target) {
+      return;
+    }
     target[index].starred = !target[index].starred
     this.sortTasks(target);
   }
@@ -92,7 +100,10 @@ export class TasksPanelComponent {
    * @param {number} index The index of the task
    */
   onCheck(isDaily: boolean, index: number): void {
-    const target: Task[] = isDaily ? this.dailyTasks : this.todaysTasks;
+    const target: Task[] | null | undefined = isDaily ? this.dailyTasks : this.todaysTasks;
+    if (!target) {
+      return;
+    }
     target.splice(index, 1);
   }
 }

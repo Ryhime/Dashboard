@@ -49,7 +49,7 @@
         </div>
     </div>
 <br>
-    <p-table [value]="topIps">
+    <p-table *ngIf="topIps" [value]="topIps">
         <ng-template pTemplate="header">
             <tr>
                 <th>IP Address</th>
@@ -63,5 +63,8 @@
             </tr>
         </ng-template>
     </p-table>
-    
+
+    <i *ngIf="topIps === undefined" class="pi pi-spinner pi-spin" style="font-size: 2.5rem" title="Loading Network Packets"></i>
+
+    <i *ngIf="topIps === null" class="pi pi-exclamation-triangle" style="font-size: 2.5rem; position: relative; left: 50%;" title="Unable to Load Network Packets"></i>
 </p-panel>

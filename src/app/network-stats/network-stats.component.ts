@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { BackendService } from '../Services/backend.service';
-import { repeat, Subscription } from 'rxjs';
+import { catchError, of, repeat, Subscription } from 'rxjs';
 
 export class IpData {
   ip: string;
@@ -36,14 +36,14 @@ export class NetworkStatsComponent {
   backendService: BackendService;
   currentSubscription: Subscription;
 
-  topIps: IpData[] = [];
+  topIps: IpData[] | null | undefined = undefined;
   allIps: IpData[] = [];
 
   constructor(backendService: BackendService) {
     this.backendService = backendService;
     // Start Network Subscription
     this.currentSubscription = backendService.networkData$.pipe(
-      repeat({delay: this.updateTimeInMinutes * 1000 * 60})
+      repeat({delay: this.updateTimeInMinutes * 1000 * 60}), catchError(() => of(null)),
     ).subscribe((data: unknown) => {
       this.processIncomingNetworkData(data);
     });
@@ -55,6 +55,7 @@ export class NetworkStatsComponent {
    */
   processIncomingNetworkData(data?: any | null) {
     if (!data) {
+      this.topIps = null;
       return;
     }
     this.allIps = [];
@@ -79,7 +80,7 @@ export class NetworkStatsComponent {
     this.currentSubscription.unsubscribe();
     // Update Subscription
     this.currentSubscription = this.backendService.networkData$.pipe(
-      repeat({delay: this.updateTimeInMinutes * 1000 * 60})
+      repeat({delay: this.updateTimeInMinutes * 1000 * 60}), catchError(() => of(null)),
     ).subscribe((data: any) => {
       this.processIncomingNetworkData(data);
     });

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
-import { repeat, Subscription } from 'rxjs';
+import { catchError, of, repeat, Subscription } from 'rxjs';
 import { BackendService } from '../Services/backend.service';
 
 enum TableCategory {
@@ -15,8 +15,6 @@ enum TableCategory {
   styleUrl: './computer-stats.component.scss'
 })
 export class ComputerStatsComponent {
-  UNDEFINED_TEXT: string = 'Loading...';
-  NULL_TEXT: string = 'Data Not Found';
   MIN_UPDATE_TIME: number = .5;
   MAX_UPDATE_TIME: number = 5;
   TIME_UPDATE_INCREMENT: number = .5;
@@ -28,10 +26,10 @@ export class ComputerStatsComponent {
 
   // https://primeng.org/chart
   // TODO: Table slows down application when closed pause it when tab closes??
-  cpuCountText: string;
-  cpuTypeText: string;
-  systemText: string;
-  totalRamText: string;
+  cpuCountText: string | null | undefined;
+  cpuTypeText: string | null | undefined;
+  systemText: string | null | undefined;
+  totalRamText: string | null | undefined;
 
   latestCpuUsage: number = 0;
   lastestGpuUsage: number = 0;
@@ -87,14 +85,17 @@ export class ComputerStatsComponent {
 
   constructor(backendService: BackendService) {
     // Assign Static Values Using Backend Service
-    this.cpuCountText = this.UNDEFINED_TEXT;
-    this.cpuTypeText = this.UNDEFINED_TEXT;
-    this.systemText = this.UNDEFINED_TEXT;
-    this.totalRamText = this.UNDEFINED_TEXT;
+    this.cpuCountText = undefined;
+    this.cpuTypeText = undefined;
+    this.systemText = undefined;
+    this.totalRamText = undefined;
 
     this.backendService = backendService;
       // Listen for new computer stats data
-      this.currentSubscription = backendService.computerData$.pipe(repeat({delay: this.updateTimeInSeconds * 1000})).subscribe((data: any) => {
+      this.currentSubscription = backendService.computerData$.pipe(
+        repeat({delay: this.updateTimeInSeconds * 1000}),
+      catchError(() => of(null)))
+      .subscribe((data: any) => {
         this.handleIncomingServiceData(data);
       });
   }
@@ -105,10 +106,10 @@ export class ComputerStatsComponent {
    */
   handleIncomingServiceData(data?: any | null) {
     if (!data) {
-      this.cpuCountText = this.NULL_TEXT;
-      this.systemText = this.NULL_TEXT;
-      this.cpuTypeText = this.NULL_TEXT;
-      this.totalRamText = this.NULL_TEXT;
+      this.cpuCountText = null;
+      this.systemText = null;
+      this.cpuTypeText = null;
+      this.totalRamText = null;
       return;
     }
     this.cpuCountText = data['cpu_count'].toString();
@@ -125,7 +126,9 @@ export class ComputerStatsComponent {
   updateTableObservable() {
     this.currentSubscription.unsubscribe();
     // Listen for new computer stats data
-    this.currentSubscription = this.backendService.computerData$.pipe(repeat({delay: this.updateTimeInSeconds * 1000})).subscribe((data: any) => {
+    this.currentSubscription = this.backendService.computerData$.pipe(
+      repeat({delay: this.updateTimeInSeconds * 1000}),
+      catchError(() => of(null))).subscribe((data: any) => {
       this.handleIncomingServiceData(data);
     });
   }
