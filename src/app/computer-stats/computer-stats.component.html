@@ -10,13 +10,13 @@
                 <p-knob [(ngModel)]="updateTimeInSeconds" size="100" readonly="true" [min]="MIN_UPDATE_TIME" [max]="MAX_UPDATE_TIME"/>
                 <p>Update Time - Seconds</p>
                 <p-button 
-                    icon="pi pi-plus" 
-                    (onClick)="updateTimeInSeconds = updateTimeInSeconds + TIME_UPDATE_INCREMENT; updateTableObservable()" 
-                    [disabled]="updateTimeInSeconds >= MAX_UPDATE_TIME" />
-                <p-button 
                     icon="pi pi-minus" 
                     (onClick)="updateTimeInSeconds = updateTimeInSeconds - TIME_UPDATE_INCREMENT; updateTableObservable()" 
                     [disabled]="updateTimeInSeconds <= MIN_UPDATE_TIME" />
+                <p-button 
+                    icon="pi pi-plus" 
+                    (onClick)="updateTimeInSeconds = updateTimeInSeconds + TIME_UPDATE_INCREMENT; updateTableObservable()" 
+                    [disabled]="updateTimeInSeconds >= MAX_UPDATE_TIME" />
             </div>
 
             <!-- CPU Count, CPU Type, System -->
