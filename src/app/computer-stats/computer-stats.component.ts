@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
-import { interval, Observable, repeat, Subscription } from 'rxjs';
+import { repeat, Subscription } from 'rxjs';
 import { BackendService } from '../Services/backend.service';
 
 enum TableCategory {

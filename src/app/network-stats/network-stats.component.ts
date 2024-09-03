@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { BackendService } from '../Services/backend.service';
 import { repeat, Subscription } from 'rxjs';
@@ -42,8 +43,8 @@ export class NetworkStatsComponent {
     this.backendService = backendService;
     // Start Network Subscription
     this.currentSubscription = backendService.networkData$.pipe(
-      repeat({delay: this.updateTimeInMinutes * 100})
-    ).subscribe((data: any) => {
+      repeat({delay: this.updateTimeInMinutes * 1000 * 60})
+    ).subscribe((data: unknown) => {
       this.processIncomingNetworkData(data);
     });
   }
@@ -78,7 +79,7 @@ export class NetworkStatsComponent {
     this.currentSubscription.unsubscribe();
     // Update Subscription
     this.currentSubscription = this.backendService.networkData$.pipe(
-      repeat({delay: this.updateTimeInMinutes * 100})
+      repeat({delay: this.updateTimeInMinutes * 1000 * 60})
     ).subscribe((data: any) => {
       this.processIncomingNetworkData(data);
     });
