@@ -16,8 +16,9 @@
 							"pm.test(\"Status Should be 200 and return valid fields with numPackets being 100\", function (){",
 							"    const response = pm.response.json();",
 							"    pm.response.to.have.status(200);",
-							"    pm.expect(response.ips).to.be.a('object');",
+							"    pm.expect(response.ips).to.be.a('array');",
 							"    pm.expect(response.numPackets).to.be.a('number');",
+							"    pm.expect(response.packets_per_ip).to.be.a('array');",
 							"    pm.expect(response.numPackets).to.eql(100);",
 							"});"
 						],
@@ -52,9 +53,10 @@
 							"pm.test(\"Status Should be 200 and return valid fields with numPackets being 5\", function (){",
 							"    const response = pm.response.json();",
 							"    pm.response.to.have.status(200);",
-							"    pm.expect(response.ips).to.be.a('object');",
+							"    pm.expect(response.ips).to.be.a('array');",
 							"    pm.expect(response.numPackets).to.be.a('number');",
-							"    pm.expect(response.numPackets).to.eql(5);",
+							"    pm.expect(response.packets_per_ip).to.be.a('array');",
+							"    pm.expect(response.numPackets).to.eql(10);",
 							"});"
 						],
 						"type": "text/javascript",
@@ -66,7 +68,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:{{port}}/network-stats?numPackets=5",
+					"raw": "localhost:{{port}}/network-stats?numPackets=10",
 					"host": [
 						"localhost"
 					],
@@ -77,7 +79,7 @@
 					"query": [
 						{
 							"key": "numPackets",
-							"value": "5"
+							"value": "10"
 						}
 					]
 				}

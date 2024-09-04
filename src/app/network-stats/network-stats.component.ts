@@ -54,7 +54,7 @@ export class NetworkStatsComponent {
    * @param {any | null} data The incoming network data 
    */
   processIncomingNetworkData(data?: any | null) {
-    if (!data) {
+    if (data === null) {
       this.topIps = null;
       return;
     }

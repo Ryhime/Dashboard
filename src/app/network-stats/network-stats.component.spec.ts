@@ -69,9 +69,25 @@ describe('NetworkStatsComponent', () => {
       component.processIncomingNetworkData(null);
 
       expect(component.getTableData).not.toHaveBeenCalled();
-      expect(component.topIps).toEqual([]);
+      expect(component.topIps).toBeNull();
       expect(component.allIps[0].ip).toEqual('A');
       expect(component.allIps[1].ip).toEqual('B');
+    });
+
+    it('should update the top ips when there is an empty list', () => {
+      spyOn(component, 'getTableData').and.callThrough();
+      component.allIps = [new IpData('A', 5), new IpData('B', 6)];
+      component.topIps = [new IpData('A', 500)];
+      const data = {
+        'ips': [],
+        'packets_per_ip': [],
+      };
+
+      component.processIncomingNetworkData(data);
+
+      expect(component.getTableData).toHaveBeenCalled();
+      expect(component.allIps).toEqual([]);
+      expect(component.topIps).toEqual([]);
     });
   });
 

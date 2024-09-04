@@ -72,17 +72,17 @@ describe('TasksPanelComponent', () => {
     it('should set both lists to nothing if no data', () => {
       component.processIncomingTaskData(null);
 
-      expect(component.dailyTasks).toEqual([]);
-      expect(component.todaysTasks).toEqual([]);
+      expect(component.dailyTasks).toEqual(null);
+      expect(component.todaysTasks).toEqual(null);
     });
 
-    it('should set to nothing if there is no task lists in the data', () => {
+    it('should set the list to null if there is no daily or todays task list', () => {
       const data: any = [];
       
       component.processIncomingTaskData(data);
 
-      expect(component.dailyTasks).toEqual([]);
-      expect(component.todaysTasks).toEqual([]);
+      expect(component.dailyTasks).toBeNull();
+      expect(component.todaysTasks).toBeNull();
     });
 
     it('should update the tasks with dailies and todays tasks', () => {
@@ -143,10 +143,10 @@ describe('TasksPanelComponent', () => {
 
     it('should star a daily task and sort', () => {
       // Arrange
-      const firstUnstarIndex: number = component.dailyTasks.findIndex((task: Task) => !task.starred)!;
-      const targetTask: Task = component.dailyTasks[firstUnstarIndex];
+      const firstUnstarIndex: number = component.dailyTasks!.findIndex((task: Task) => !task.starred)!;
+      const targetTask: Task = component.dailyTasks![firstUnstarIndex];
 
-      let expected: Task[] = [...component.dailyTasks];
+      let expected: Task[] = [...component.dailyTasks!];
       expected[firstUnstarIndex] = {'starred': true, 'text': expected[firstUnstarIndex].text};
       expected = component.sortTasks(expected);
       
@@ -154,16 +154,16 @@ describe('TasksPanelComponent', () => {
       component.onClickStar(true, firstUnstarIndex);
 
       // Assert
-      expect(expected).toEqual(component.dailyTasks);
+      expect(expected).toEqual(component.dailyTasks!);
       expect(targetTask.starred).toEqual(true);
     });
 
     it('should un star a daily task and sort', () => {
       // Arrange
-      const firstStarIndex: number = component.dailyTasks.findIndex((task: Task) => task.starred)!;
-      const targetTask: Task = component.dailyTasks[firstStarIndex];
+      const firstStarIndex: number = component.dailyTasks!.findIndex((task: Task) => task.starred)!;
+      const targetTask: Task = component.dailyTasks![firstStarIndex];
 
-      let expected: Task[] = [...component.dailyTasks];
+      let expected: Task[] = [...component.dailyTasks!];
       expected[firstStarIndex] = {'starred': false, 'text': expected[firstStarIndex].text};
       expected = component.sortTasks(expected);
       
@@ -171,16 +171,16 @@ describe('TasksPanelComponent', () => {
       component.onClickStar(true, firstStarIndex);
 
       // Assert
-      expect(expected).toEqual(component.dailyTasks);
+      expect(expected).toEqual(component.dailyTasks!);
       expect(targetTask.starred).toEqual(false);
     });
 
     it('should star a todays task and sort', () => {
       // Arrange
-      const firstUnstarIndex: number = component.todaysTasks.findIndex((task: Task) => !task.starred)!;
-      const targetTask: Task = component.todaysTasks[firstUnstarIndex];
+      const firstUnstarIndex: number = component.todaysTasks!.findIndex((task: Task) => !task.starred)!;
+      const targetTask: Task = component.todaysTasks![firstUnstarIndex];
 
-      let expected: Task[] = [...component.todaysTasks];
+      let expected: Task[] = [...component.todaysTasks!];
       expected[firstUnstarIndex] = {'starred': true, 'text': expected[firstUnstarIndex].text};
       expected = component.sortTasks(expected);
       
@@ -188,16 +188,16 @@ describe('TasksPanelComponent', () => {
       component.onClickStar(false, firstUnstarIndex);
 
       // Assert
-      expect(expected).toEqual(component.todaysTasks);
+      expect(expected).toEqual(component.todaysTasks!);
       expect(targetTask.starred).toEqual(true);
     });
 
     it('should un star a todays task and sort', () => {
       // Arrange
-      const firstStarIndex: number = component.todaysTasks.findIndex((task: Task) => task.starred)!;
-      const targetTask: Task = component.todaysTasks[firstStarIndex];
+      const firstStarIndex: number = component.todaysTasks!.findIndex((task: Task) => task.starred)!;
+      const targetTask: Task = component.todaysTasks![firstStarIndex];
 
-      let expected: Task[] = [...component.todaysTasks];
+      let expected: Task[] = [...component.todaysTasks!];
       expected[firstStarIndex] = {'starred': false, 'text': expected[firstStarIndex].text};
       expected = component.sortTasks(expected);
       
@@ -205,7 +205,7 @@ describe('TasksPanelComponent', () => {
       component.onClickStar(false, firstStarIndex);
 
       // Assert
-      expect(expected).toEqual(component.todaysTasks);
+      expect(expected).toEqual(component.todaysTasks!);
       expect(targetTask.starred).toEqual(false);
     });
   });
@@ -219,29 +219,29 @@ describe('TasksPanelComponent', () => {
     it('should remove a checked daily task', () => {
       // Arrange
       const indexToRemove: number = 2;
-      const removedElement: Task = component.dailyTasks[indexToRemove];
-      const expectedLength: number = component.dailyTasks.length - 1;
+      const removedElement: Task = component.dailyTasks![indexToRemove];
+      const expectedLength: number = component.dailyTasks!.length - 1;
       
       // Act
       component.onCheck(true, indexToRemove);
 
       // Assert
-      expect(component.dailyTasks.length).toEqual(expectedLength);
-      expect(component.dailyTasks.find((task: Task) => task === removedElement)).toBeFalsy();
+      expect(component.dailyTasks!.length).toEqual(expectedLength);
+      expect(component.dailyTasks!.find((task: Task) => task === removedElement)).toBeFalsy();
     });
 
     it('should remove a checked todays task', () => {
       // Arrange
       const indexToRemove: number = 1;
-      const removedElement: Task = component.todaysTasks[indexToRemove];
-      const expectedLength: number = component.todaysTasks.length - 1;
+      const removedElement: Task = component.todaysTasks![indexToRemove];
+      const expectedLength: number = component.todaysTasks!.length - 1;
       
       // Act
       component.onCheck(false, indexToRemove);
 
       // Assert
-      expect(component.todaysTasks.length).toEqual(expectedLength);
-      expect(component.todaysTasks.find((task: Task) => task === removedElement)).toBeFalsy();
+      expect(component.todaysTasks!.length).toEqual(expectedLength);
+      expect(component.todaysTasks!.find((task: Task) => task === removedElement)).toBeFalsy();
     });
   });
 });

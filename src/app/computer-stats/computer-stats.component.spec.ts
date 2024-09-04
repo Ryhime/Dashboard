@@ -34,11 +34,11 @@ describe('ComputerStatsComponent', () => {
   });
 
   describe('constructor', () => {
-    it('should set static data text', () => {
-      expect(component.cpuCountText.length).toBeGreaterThan(0);
-      expect(component.cpuTypeText.length).toBeGreaterThan(0);
-      expect(component.systemText.length).toBeGreaterThan(0);
-      expect(component.totalRamText.length).toBeGreaterThan(0);
+    it('should set static data text to undefined', () => {
+      expect(component.cpuCountText).toEqual (undefined);
+      expect(component.cpuTypeText).toEqual(undefined);
+      expect(component.systemText).toEqual(undefined);
+      expect(component.totalRamText).toEqual(undefined);
     });
   });
 
@@ -68,10 +68,10 @@ describe('ComputerStatsComponent', () => {
       spyOn(component, 'addTableData');
       component.handleIncomingServiceData(null);
 
-      expect(component.cpuCountText).toEqual(component.NULL_TEXT);
-      expect(component.systemText).toEqual(component.NULL_TEXT);
-      expect(component.cpuTypeText).toEqual(component.NULL_TEXT);
-      expect(component.totalRamText).toEqual(component.NULL_TEXT);
+      expect(component.cpuCountText).toEqual(null);
+      expect(component.systemText).toEqual(null);
+      expect(component.cpuTypeText).toEqual(null);
+      expect(component.totalRamText).toEqual(null);
 
       expect(component.addTableData).not.toHaveBeenCalled();
     });

@@ -36,7 +36,7 @@ export class TasksPanelComponent {
    * @param {any | null} data The new data coming in 
    */
   processIncomingTaskData(data: any | null) {
-    if (!data) {
+    if (data === null) {
       this.dailyTasks = null;
       this.todaysTasks = null;
       return;
