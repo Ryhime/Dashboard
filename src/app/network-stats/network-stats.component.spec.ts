@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IpData, NetworkStatsComponent } from './network-stats.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BackendService } from '../Services/backend.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 describe('NetworkStatsComponent', () => {
   let component: NetworkStatsComponent;
@@ -43,6 +43,13 @@ describe('NetworkStatsComponent', () => {
   });
 
   describe('processIncomingNetworkData', () => {
+    it('should be called when updating backendService networkDataa$', () => {
+      spyOn(component, 'processIncomingNetworkData');
+      spyOn(mockBackendService, 'networkData$').and.returnValue(of({}));
+
+      component.processIncomingNetworkData();
+    });
+
     it('should update all Ips and assign table data when there is new data', () => {
       spyOn(component, 'getTableData');
       component.allIps = [];

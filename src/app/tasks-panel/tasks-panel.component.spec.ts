@@ -5,13 +5,13 @@ import { TasksPanelComponent } from './tasks-panel.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Task } from './tasks-panel.component';
 import { BackendService } from '../Services/backend.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 describe('TasksPanelComponent', () => {
   let component: TasksPanelComponent;
   let fixture: ComponentFixture<TasksPanelComponent>;
 
-  let mockBackendService;
+  let mockBackendService: any;
 
   function getTaskTestData(): Task[] {
     return [
@@ -52,6 +52,13 @@ describe('TasksPanelComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('constructor', () => {
+    it('should call processIncomingTaskData when valid data comes through', () => {
+      spyOn(mockBackendService, 'tasksData$').and.returnValue(of([]));
+      fixture = TestBed.createComponent(TasksPanelComponent);
+    });
   });
 
   describe('Task class', () => {
@@ -141,6 +148,14 @@ describe('TasksPanelComponent', () => {
       component.todaysTasks = getTaskTestData().slice(5);
     });
 
+    it('should not sort tasks if the target is null', () => {
+      spyOn(component, 'sortTasks');
+      component.dailyTasks = null;
+      component.todaysTasks = undefined;
+      component.onClickStar(true, 5);
+
+      expect(component.sortTasks).not.toHaveBeenCalled();
+    });
     it('should star a daily task and sort', () => {
       // Arrange
       const firstUnstarIndex: number = component.dailyTasks!.findIndex((task: Task) => !task.starred)!;
@@ -214,6 +229,23 @@ describe('TasksPanelComponent', () => {
     beforeEach(() => {
       component.dailyTasks = getTaskTestData().slice(0, 5);
       component.todaysTasks = getTaskTestData().slice(5);
+    });
+
+    it('should keep the same length when an empty array is given', () => {
+      component.dailyTasks = [];
+      component.onCheck(true, 5);
+
+      expect(component.dailyTasks.length).toEqual(0);
+    });
+
+    it('should not remove elements from target if it is null and not crash', () => {
+      component.dailyTasks = null;
+      component.todaysTasks = undefined;
+
+      component.onCheck(true, 5);
+  
+      expect(component.dailyTasks).toBeNull();
+      expect(component.todaysTasks).toBeUndefined();
     });
 
     it('should remove a checked daily task', () => {
