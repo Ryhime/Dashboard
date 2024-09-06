@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IpData, NetworkStatsComponent } from './network-stats.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BackendService } from '../Services/backend.service';
-import { Observable, of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 describe('NetworkStatsComponent', () => {
   let component: NetworkStatsComponent;
@@ -14,7 +14,7 @@ describe('NetworkStatsComponent', () => {
 
   beforeEach(async () => {
     mockBackendService = jasmine.createSpyObj('BackendService' ,['networkData$', 'updateNetworkDataUrl']);
-    mockBackendService['networkData$'] = new Observable();
+    mockBackendService['networkData$'] = new Subject();
 
     await TestBed.configureTestingModule({
       providers: [
@@ -39,6 +39,14 @@ describe('NetworkStatsComponent', () => {
       const data: IpData = new IpData('myIp', 500);
       expect(data.ip).toEqual('myIp');
       expect(data.numPackets).toEqual(500);
+    });
+  });
+
+  describe('constructor', () => {
+    it('should subscribe to networkData$', () => {
+      spyOn(component, 'processIncomingNetworkData');
+      mockBackendService['networkData$'].next(of({}));
+      expect(component.processIncomingNetworkData).toHaveBeenCalled();
     });
   });
 
@@ -99,6 +107,13 @@ describe('NetworkStatsComponent', () => {
   });
 
   describe('onRequestSettingsChange', () => {
+    it('should subscribe to networkData$', () => {
+      spyOn(component, 'processIncomingNetworkData');
+      component.onRequestSettingsChange(5, 5);
+      mockBackendService['networkData$'].next(of({}));
+      expect(component.processIncomingNetworkData).toHaveBeenCalled();
+    });
+
     it('should update the number of packets and update time for positive values', () => {
       component.numberOfPacketsPerUpdate = 5;
       component.updateTimeInMinutes = 5;

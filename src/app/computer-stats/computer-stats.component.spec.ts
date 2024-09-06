@@ -2,18 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ComputerStatsComponent } from './computer-stats.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { BackendService } from '../Services/backend.service';
 
 describe('ComputerStatsComponent', () => {
   let component: ComputerStatsComponent;
   let fixture: ComponentFixture<ComputerStatsComponent>;
 
-  let mockBackendService;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let mockBackendService: any;
 
   beforeEach(async () => {
     mockBackendService = jasmine.createSpyObj('BackendService', ['computerData$']);
-    mockBackendService['computerData$'] = new Observable();
+    mockBackendService['computerData$'] = new Subject();
 
     await TestBed.configureTestingModule({
       providers: [
@@ -39,6 +40,12 @@ describe('ComputerStatsComponent', () => {
       expect(component.cpuTypeText).toEqual(undefined);
       expect(component.systemText).toEqual(undefined);
       expect(component.totalRamText).toEqual(undefined);
+    });
+
+    it('should subscribe to computerData$', () => {
+      spyOn(component, 'handleIncomingServiceData');
+      mockBackendService['computerData$'].next(of({}));
+      expect(component.handleIncomingServiceData).toHaveBeenCalled();
     });
   });
 
@@ -83,6 +90,13 @@ describe('ComputerStatsComponent', () => {
       component.currentSubscription.unsubscribe();
       component.updateTableObservable();
       expect(component.currentSubscription.closed).toEqual(false);
+    });
+
+    it('should subscribe to computerData$ after being called', () => {
+      spyOn(component, 'handleIncomingServiceData');
+      component.updateTableObservable();
+      mockBackendService['computerData$'].next(of(undefined));
+      expect(component.handleIncomingServiceData).toHaveBeenCalled();
     });
   });
 

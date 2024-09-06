@@ -5,7 +5,7 @@ import { TasksPanelComponent } from './tasks-panel.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Task } from './tasks-panel.component';
 import { BackendService } from '../Services/backend.service';
-import { Observable, of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 describe('TasksPanelComponent', () => {
   let component: TasksPanelComponent;
@@ -34,7 +34,7 @@ describe('TasksPanelComponent', () => {
 
   beforeEach(async () => {
     mockBackendService = jasmine.createSpyObj('BackendService', ['tasksData$']);
-    mockBackendService['tasksData$'] = new Observable();
+    mockBackendService['tasksData$'] = new Subject();
     
     await TestBed.configureTestingModule({
       providers: [
@@ -56,8 +56,9 @@ describe('TasksPanelComponent', () => {
 
   describe('constructor', () => {
     it('should call processIncomingTaskData when valid data comes through', () => {
-      spyOn(mockBackendService, 'tasksData$').and.returnValue(of([]));
-      fixture = TestBed.createComponent(TasksPanelComponent);
+      spyOn(component, 'processIncomingTaskData');
+      mockBackendService['tasksData$'].next(of({}));
+      expect(component.processIncomingTaskData).toHaveBeenCalled();
     });
   });
 
