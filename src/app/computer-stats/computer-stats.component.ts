@@ -21,6 +21,8 @@ export class ComputerStatsComponent {
 
   MAX_GRAPH_DATA_POINTS: number = 50;
 
+  NUM_DECIMALS: number = 2;
+
   currentSubscription: Subscription;
   currentDataPoints: number = 0;
 
@@ -116,7 +118,13 @@ export class ComputerStatsComponent {
     this.cpuCountText = data['cpu_count'].toString();
     this.systemText = data['system'].toString();
     this.cpuTypeText = data['cpu'].toString();
-    this.totalRamText = (data['ram_total']/Math.pow(10, 9)).toString() + ' GB';
+
+    const tempRamStrSplit: string[] = (data['ram_total']/Math.pow(10, 9)).toString().split('.');
+    let decimals: string = tempRamStrSplit[1] ? tempRamStrSplit[1] : '00';
+    if (decimals.length > this.NUM_DECIMALS) {
+      decimals = decimals.substring(0, this.NUM_DECIMALS);
+    } 
+    this.totalRamText = tempRamStrSplit[0] + '.' + decimals + ' GB';
 
     this.addTableData(data['cpu_percent'], data['gpu_percent'], data['ram_percent']);
   }

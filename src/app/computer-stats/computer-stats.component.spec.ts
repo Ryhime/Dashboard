@@ -57,7 +57,7 @@ describe('ComputerStatsComponent', () => {
         'cpu_count': 10,
         'system': 'Windows',
         'cpu': 'ARM',
-        'ram_total': 500,
+        'ram_total': 999999999999999,
         'cpu_percent': 5,
         'gpu_percent': 6,
         'ram_percent': 7,
@@ -67,7 +67,32 @@ describe('ComputerStatsComponent', () => {
       expect(component.cpuCountText).toEqual('10');
       expect(component.systemText).toEqual('Windows');
       expect(component.cpuTypeText).toEqual('ARM');
-      expect(component.totalRamText).toEqual((500/Math.pow(10, 9)).toString() + ' GB');
+
+      const tempSplit: string[] = (data['ram_total']/Math.pow(10, 9)).toString().split('.');
+      const decimals: string = tempSplit[1].substring(0, component.NUM_DECIMALS);
+      expect(component.totalRamText).toEqual(tempSplit[0] + '.' + decimals + ' GB');
+
+      expect(component.addTableData).toHaveBeenCalledWith(5, 6, 7);
+    });
+
+    it('should update static data and call add table with dynamic values when ram is 0', () => {
+      spyOn(component, 'addTableData');
+      const data = {
+        'cpu_count': 10,
+        'system': 'Windows',
+        'cpu': 'ARM',
+        'ram_total': 0,
+        'cpu_percent': 5,
+        'gpu_percent': 6,
+        'ram_percent': 7,
+      };
+      component.handleIncomingServiceData(data);
+
+      expect(component.cpuCountText).toEqual('10');
+      expect(component.systemText).toEqual('Windows');
+      expect(component.cpuTypeText).toEqual('ARM');
+
+      expect(component.totalRamText).toEqual('0' + '.' + '00' + ' GB');
 
       expect(component.addTableData).toHaveBeenCalledWith(5, 6, 7);
     });
