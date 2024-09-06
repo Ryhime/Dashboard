@@ -98,9 +98,11 @@ def get_computer_stats():
 
     # GPU
     gpu_info = GPUInfo.get_info()
+    gpu_usage = GPUInfo.gpu_usage()
+    print(gpu_usage, gpu_info[2], gpu_info[1])
     data['gpu_total'] = sum(gpu_info[2])
     data['gpu_used'] = sum(gpu_info[1])
-    data['gpu_percent'] = round((sum(gpu_info[1])/sum(gpu_info[2])) * 100, 1)
+    data['gpu_percent'] = round((sum(gpu_info[1])/sum(gpu_info[2])) * 100, 2)
 
     # CPU
     data['cpu_percent'] = psutil.cpu_percent()
@@ -109,9 +111,9 @@ def get_computer_stats():
 
     # RAM
     ram = psutil.virtual_memory()
-    data['ram_total'] = ram.total
-    data['ram_used'] = ram.used
-    data['ram_percent'] = ram.percent
+    data['ram_total'] = round(ram.total/pow(10, 9), 2)
+    data['ram_used'] = round(ram.used/pow(10, 9), 2)
+    data['ram_percent'] = round(ram.percent/pow(10, 9), 2)
 
     return jsonify(data)
 

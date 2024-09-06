@@ -118,13 +118,7 @@ export class ComputerStatsComponent {
     this.cpuCountText = data['cpu_count'].toString();
     this.systemText = data['system'].toString();
     this.cpuTypeText = data['cpu'].toString();
-
-    const tempRamStrSplit: string[] = (data['ram_total']/Math.pow(10, 9)).toString().split('.');
-    let decimals: string = tempRamStrSplit[1] ? tempRamStrSplit[1] : '00';
-    if (decimals.length > this.NUM_DECIMALS) {
-      decimals = decimals.substring(0, this.NUM_DECIMALS);
-    } 
-    this.totalRamText = tempRamStrSplit[0] + '.' + decimals + ' GB';
+    this.totalRamText = data['ram_total'].toString() + ' GB';
 
     this.addTableData(data['cpu_percent'], data['gpu_percent'], data['ram_percent']);
   }
