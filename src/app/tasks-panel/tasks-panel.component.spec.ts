@@ -33,7 +33,7 @@ describe('TasksPanelComponent', () => {
   }
 
   beforeEach(async () => {
-    mockBackendService = jasmine.createSpyObj('BackendService', ['tasksData$']);
+    mockBackendService = jasmine.createSpyObj('BackendService', ['tasksData$', 'setIsServiceDown']);
     mockBackendService['tasksData$'] = new Subject();
     
     await TestBed.configureTestingModule({
@@ -59,6 +59,7 @@ describe('TasksPanelComponent', () => {
       spyOn(component, 'processIncomingTaskData');
       mockBackendService['tasksData$'].next(of({}));
       expect(component.processIncomingTaskData).toHaveBeenCalled();
+      expect(mockBackendService.setIsServiceDown).toHaveBeenCalled();
     });
   });
 

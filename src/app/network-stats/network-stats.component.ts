@@ -45,6 +45,7 @@ export class NetworkStatsComponent {
     this.currentSubscription = backendService.networkData$.pipe(
       repeat({delay: this.updateTimeInMinutes * 1000 * 60}), catchError(() => of(null)),
     ).subscribe((data: unknown) => {
+      this.backendService.setIsServiceDown(data === null);
       this.processIncomingNetworkData(data);
     });
   }
@@ -82,6 +83,7 @@ export class NetworkStatsComponent {
     this.currentSubscription = this.backendService.networkData$.pipe(
       repeat({delay: this.updateTimeInMinutes * 1000 * 60}), catchError(() => of(null)),
     ).subscribe((data: any) => {
+      this.backendService.setIsServiceDown(data === null);
       this.processIncomingNetworkData(data);
     });
   }

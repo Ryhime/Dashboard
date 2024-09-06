@@ -27,6 +27,7 @@ export class TasksPanelComponent {
 
   constructor(backendService: BackendService) {
     backendService.tasksData$.pipe(take(1), catchError(() => of(null))).subscribe((data: any) => {
+      backendService.setIsServiceDown(data === null);
       this.processIncomingTaskData(data);
     });
   }

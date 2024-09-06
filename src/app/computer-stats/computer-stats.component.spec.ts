@@ -13,7 +13,7 @@ describe('ComputerStatsComponent', () => {
   let mockBackendService: any;
 
   beforeEach(async () => {
-    mockBackendService = jasmine.createSpyObj('BackendService', ['computerData$']);
+    mockBackendService = jasmine.createSpyObj('BackendService', ['computerData$', 'setIsServiceDown']);
     mockBackendService['computerData$'] = new Subject();
 
     await TestBed.configureTestingModule({
@@ -46,6 +46,7 @@ describe('ComputerStatsComponent', () => {
       spyOn(component, 'handleIncomingServiceData');
       mockBackendService['computerData$'].next(of({}));
       expect(component.handleIncomingServiceData).toHaveBeenCalled();
+      expect(mockBackendService.setIsServiceDown).toHaveBeenCalled();
     });
   });
 
@@ -97,6 +98,7 @@ describe('ComputerStatsComponent', () => {
       component.updateTableObservable();
       mockBackendService['computerData$'].next(of(undefined));
       expect(component.handleIncomingServiceData).toHaveBeenCalled();
+      expect(mockBackendService.setIsServiceDown).toHaveBeenCalled();
     });
   });
 

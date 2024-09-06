@@ -96,6 +96,7 @@ export class ComputerStatsComponent {
         repeat({delay: this.updateTimeInSeconds * 1000}),
       catchError(() => of(null)))
       .subscribe((data: any) => {
+        this.backendService.setIsServiceDown(data === null);
         this.handleIncomingServiceData(data);
       });
   }
@@ -129,7 +130,8 @@ export class ComputerStatsComponent {
     this.currentSubscription = this.backendService.computerData$.pipe(
       repeat({delay: this.updateTimeInSeconds * 1000}),
       catchError(() => of(null))).subscribe((data: any) => {
-      this.handleIncomingServiceData(data);
+        this.backendService.setIsServiceDown(data === null);
+        this.handleIncomingServiceData(data);
     });
   }
 

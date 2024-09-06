@@ -13,7 +13,7 @@ describe('NetworkStatsComponent', () => {
   let mockBackendService: any;
 
   beforeEach(async () => {
-    mockBackendService = jasmine.createSpyObj('BackendService' ,['networkData$', 'updateNetworkDataUrl']);
+    mockBackendService = jasmine.createSpyObj('BackendService' ,['networkData$', 'updateNetworkDataUrl', 'setIsServiceDown']);
     mockBackendService['networkData$'] = new Subject();
 
     await TestBed.configureTestingModule({
@@ -47,17 +47,11 @@ describe('NetworkStatsComponent', () => {
       spyOn(component, 'processIncomingNetworkData');
       mockBackendService['networkData$'].next(of({}));
       expect(component.processIncomingNetworkData).toHaveBeenCalled();
+      expect(mockBackendService.setIsServiceDown).toHaveBeenCalled();
     });
   });
 
   describe('processIncomingNetworkData', () => {
-    it('should be called when updating backendService networkDataa$', () => {
-      spyOn(component, 'processIncomingNetworkData');
-      spyOn(mockBackendService, 'networkData$').and.returnValue(of({}));
-
-      component.processIncomingNetworkData();
-    });
-
     it('should update all Ips and assign table data when there is new data', () => {
       spyOn(component, 'getTableData');
       component.allIps = [];
@@ -112,6 +106,7 @@ describe('NetworkStatsComponent', () => {
       component.onRequestSettingsChange(5, 5);
       mockBackendService['networkData$'].next(of({}));
       expect(component.processIncomingNetworkData).toHaveBeenCalled();
+      expect(mockBackendService.setIsServiceDown).toHaveBeenCalled();
     });
 
     it('should update the number of packets and update time for positive values', () => {

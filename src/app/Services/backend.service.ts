@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ export class BackendService {
   networkData$ = new Observable();
   computerData$ = new Observable();
   tasksData$ = new Observable();
+
+  private isServiceDown$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(http: HttpClient) {
     this.http = http;
@@ -25,5 +27,22 @@ export class BackendService {
    */
   updateNetworkDataUrl(numPackets: number) {
     this.networkData$ = this.http.get(`http://www.localhost:5000/network-stats?numPackets=${numPackets}`)
+  }
+
+  // Observables
+  /**
+   * The observable if the service is down
+   * @return {Observable<boolean>}
+   */
+  public getIsServiceDown(): Observable<boolean> {
+    return this.isServiceDown$.asObservable();
+  }
+
+  /**
+   * The value to set if the service is down or not
+   * @param {boolean} value 
+   */
+  public setIsServiceDown(value: boolean) {
+    this.isServiceDown$.next(value);
   }
 }
