@@ -116,7 +116,7 @@ export class ComputerStatsComponent {
     this.cpuCountText = data['cpu_count'].toString();
     this.systemText = data['system'].toString();
     this.cpuTypeText = data['cpu'].toString();
-    this.totalRamText = data['ram_total'].toString();
+    this.totalRamText = (data['ram_total']/Math.pow(10, 9)).toString() + ' GB';
 
     this.addTableData(data['cpu_percent'], data['gpu_percent'], data['ram_percent']);
   }

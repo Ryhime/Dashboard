@@ -67,7 +67,7 @@ describe('ComputerStatsComponent', () => {
       expect(component.cpuCountText).toEqual('10');
       expect(component.systemText).toEqual('Windows');
       expect(component.cpuTypeText).toEqual('ARM');
-      expect(component.totalRamText).toEqual('500');
+      expect(component.totalRamText).toEqual((500/Math.pow(10, 9)).toString() + ' GB');
 
       expect(component.addTableData).toHaveBeenCalledWith(5, 6, 7);
     });
