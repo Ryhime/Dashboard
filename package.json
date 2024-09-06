@@ -21,6 +21,7 @@
     "@angular/router": "^17.3.0",
     "chart.js": "^4.4.4",
     "ci-test": "^0.1.11",
+    "lodash": "^4.17.21",
     "newman": "^6.2.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.5",

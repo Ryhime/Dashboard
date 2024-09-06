@@ -113,7 +113,7 @@ def get_computer_stats():
     ram = psutil.virtual_memory()
     data['ram_total'] = round(ram.total/pow(10, 9), 2)
     data['ram_used'] = round(ram.used/pow(10, 9), 2)
-    data['ram_percent'] = round(ram.percent/pow(10, 9), 2)
+    data['ram_percent'] = ram.percent
 
     return jsonify(data)
 
