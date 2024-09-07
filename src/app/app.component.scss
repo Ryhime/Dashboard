@@ -15,3 +15,11 @@
 .panel {
     padding: 10px;
 }
+
+:host ::ng-deep{
+    p-button{
+        :hover{
+            cursor: pointer;
+        }
+    }
+}
