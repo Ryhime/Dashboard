@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { catchError, of, repeat, Subscription } from 'rxjs';
 import { BackendService } from '../Services/backend.service';
 
