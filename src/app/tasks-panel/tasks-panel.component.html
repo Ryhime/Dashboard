@@ -3,24 +3,52 @@
         <h2>Tasks</h2>
         <i class="pi pi-list-check header-icon"></i>
     </ng-template>
-    <div id="body">
-        <div id="daily-tasks">
-            <h3 class="sub-header">Daily Tasks</h3>
-            <div class="task-entry" *ngFor="let task of dailyTasks; index as i">
-                <p-button (onClick)="onClickStar(true, i)" styleClass="star-icon-button" icon="pi pi-star-fill" [text]="true" [rounded]="true" *ngIf="task.starred"/>
-                <p-button (onClick)="onClickStar(true, i)" styleClass="star-icon-button" icon="pi pi-star" [text]="true" [rounded]="true" *ngIf="!task.starred"/>
-                <p-button (onClick)="onCheck(true, i)" styleClass="check-icon-button" icon="pi pi-check-circle" [text]="true" [rounded]="true" [outlined]="false"/>
-                {{task.text}}
-            </div>
-        </div>
-        <div id="today-tasks">
-            <h3 class="sub-header">Today's Tasks</h3>
-            <div class="task-entry" *ngFor="let task of todaysTasks; index as i">
-                <p-button (onClick)="onClickStar(false, i)" styleClass="star-icon-button" icon="pi pi-star-fill" [text]="true" [rounded]="true" *ngIf="task.starred"/>
-                <p-button (onClick)="onClickStar(false, i)" styleClass="star-icon-button" icon="pi pi-star" [text]="true" [rounded]="true" *ngIf="!task.starred"/>
-                <p-button (onClick)="onCheck(false, i)" styleClass="check-icon-button" icon="pi pi-check-circle" [text]="true" [rounded]="true" [outlined]="false"/>
-                {{task.text}}
-            </div>
-        </div>
+    <div id="daily-table" *ngIf="dailyTasks && dailyTasks.length > 0">
+        <p-table [value]="dailyTasks" styleClass="p-datatable-striped" id="daily-table">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Daily Task</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-task>
+                <tr>
+                    <td>{{ task.text }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
+
+    <p *ngIf="dailyTasks && dailyTasks.length === 0 && dailyTasks.length !== todaysTasks?.length">
+        Completed Daily Tasks
+        <i class="pi pi-check-circle" style="font-size: 1.5rem" title="Completed Daily Tasks"></i>
+    </p>
+    <i *ngIf="dailyTasks === undefined && dailyTasks !== todaysTasks" class="pi pi-spinner pi-spin" style="font-size: 2.5rem; position: relative; left: 50%;" title="Loading Daily Tasks"></i>
+    <i *ngIf="dailyTasks === null && dailyTasks !== todaysTasks" class="pi pi-exclamation-triangle" style="font-size: 2.5rem; position: relative; left: 50%;" title="Unable To Load Daily Tasks"></i>
+    <p-table *ngIf="todaysTasks && todaysTasks.length > 0" [value]="todaysTasks" styleClass="p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Today's Task</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task>
+            <tr>
+                <td>{{ task.text }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p *ngIf="todaysTasks && todaysTasks.length === 0 && todaysTasks.length !== dailyTasks?.length">
+        Completed Todays' Tasks
+        <i class="pi pi-check-circle" style="font-size: 1.5rem;" title="Completed Today's Tasks"></i>
+    </p>
+    <i *ngIf="todaysTasks === undefined && todaysTasks !== dailyTasks" class="pi pi-spinner pi-spin" style="font-size: 2.5rem; position: relative; left: 50%;" title="Loading Today's Tasks"></i>
+    <i *ngIf="todaysTasks === null && todaysTasks !== dailyTasks" class="pi pi-exclamation-triangle" style="font-size: 2.5rem; position: relative; left: 50%;" title="Unable To Load Today's Tasks"></i>
+
+    <p *ngIf="dailyTasks && todaysTasks && todaysTasks.length === 0 && todaysTasks.length === dailyTasks.length">
+        Completed All Tasks
+        <i class="pi pi-check-circle" style="font-size: 1.5rem;" title="Completed All Tasks"></i>
+    </p>
+    <i *ngIf="todaysTasks === undefined && todaysTasks === dailyTasks" class="pi pi-spinner pi-spin" style="font-size: 2.5rem; position: relative; left: 50%;" title="Loaded Tasks"></i>
+    <i *ngIf="todaysTasks === null && todaysTasks === dailyTasks" class="pi pi-exclamation-triangle" style="font-size: 2.5rem; position: relative; left: 50%;" title="Unable To Load Tasks"></i>
+    
 </p-panel>

@@ -65,7 +65,6 @@ def get_tasks():
                 "credentials.json", SCOPES
             )
             creds = flow.run_local_server()
-            print(creds.to_json())
     with open("token.json", "w", encoding = "utf-8") as token:
         token.write(creds.to_json())
 
@@ -98,8 +97,6 @@ def get_computer_stats():
 
     # GPU
     gpu_info = GPUInfo.get_info()
-    gpu_usage = GPUInfo.gpu_usage()
-    print(gpu_usage, gpu_info[2], gpu_info[1])
     data['gpu_total'] = sum(gpu_info[2])
     data['gpu_used'] = sum(gpu_info[1])
     data['gpu_percent'] = round((sum(gpu_info[1])/sum(gpu_info[2])) * 100, 2)

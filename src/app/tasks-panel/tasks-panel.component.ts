@@ -22,8 +22,8 @@ export class TasksPanelComponent {
   DAILY_TASK_TITLE: string = 'Dailies';
 
   // NOTE COULD HAVE SOMETHING LIKE A STREAK FOR DAILIES
-  dailyTasks: Task[] | undefined | null = [];
-  todaysTasks: Task[] | undefined | null = [];
+  dailyTasks: Task[] | undefined | null = undefined;
+  todaysTasks: Task[] | undefined | null = undefined;
 
   constructor(backendService: BackendService) {
     backendService.tasksData$.pipe(take(1), catchError(() => of(null))).subscribe((data: any) => {
@@ -42,6 +42,7 @@ export class TasksPanelComponent {
       this.todaysTasks = null;
       return;
     }
+    console.log(data);
     // Daily
     const dailyList: any = data.find((list: any) => list[0]['title'] === this.DAILY_TASK_TITLE);
     if (dailyList) {
@@ -79,32 +80,5 @@ export class TasksPanelComponent {
       }
       return task1.text.localeCompare(task2.text);
     });
-  }
-
-  /**
-   * Called when the star is clicked on a task
-   * @param {boolean} isDaily If the task is a daily task
-   * @param {number} index The index of the task 
-   */
-  onClickStar(isDaily: boolean, index: number): void {
-    const target: Task[] | null | undefined = isDaily ? this.dailyTasks : this.todaysTasks;
-    if (!target) {
-      return;
-    }
-    target[index].starred = !target[index].starred
-    this.sortTasks(target);
-  }
-
-  /**
-   * Called when a task is checked
-   * @param {boolean} isDaily If the task is a daily task
-   * @param {number} index The index of the task
-   */
-  onCheck(isDaily: boolean, index: number): void {
-    const target: Task[] | null | undefined = isDaily ? this.dailyTasks : this.todaysTasks;
-    if (!target) {
-      return;
-    }
-    target.splice(index, 1);
   }
 }
