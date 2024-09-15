@@ -14,6 +14,8 @@ describe('ComputerStatsComponent', () => {
 
   beforeEach(async () => {
     mockBackendService = jasmine.createSpyObj('BackendService', ['computerData$', 'setIsServiceDown']);
+
+
     mockBackendService['computerData$'] = new Subject();
 
     await TestBed.configureTestingModule({
@@ -145,6 +147,17 @@ describe('ComputerStatsComponent', () => {
   });
 
   describe('addTableData', () => {
+    beforeEach(() => {
+      const mockChart = {
+        chart: {
+          update(){
+            return;
+          }
+        }
+      };
+      component.chart = mockChart;
+    });
+
     it('should return when the cpu, gpu, or ram value is negative', () => {
       component.addTableData(0, -1, -2);
       expect(component.currentDataPoints).toEqual(0);

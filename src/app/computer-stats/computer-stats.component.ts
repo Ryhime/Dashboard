@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { catchError, of, repeat, Subscription } from 'rxjs';
 import { BackendService } from '../Services/backend.service';
 
@@ -41,7 +41,6 @@ export class ComputerStatsComponent {
   updateTimeInSeconds: number = 1;
 
   backendService: BackendService;
-  cdr: ChangeDetectorRef;
 
   tableData = {
     labels: Array.from(Array<string>(this.MAX_GRAPH_DATA_POINTS).keys()),
@@ -87,9 +86,7 @@ export class ComputerStatsComponent {
     }
   };
 
-  constructor(backendService: BackendService,
-    cdr: ChangeDetectorRef
-  ) {
+  constructor(backendService: BackendService) {
     // Assign Static Values Using Backend Service
     this.cpuCountText = undefined;
     this.cpuTypeText = undefined;
@@ -97,7 +94,6 @@ export class ComputerStatsComponent {
     this.totalRamText = undefined;
 
     this.backendService = backendService;
-    this.cdr = cdr;
       // Listen for new computer stats data
       this.currentSubscription = backendService.computerData$.pipe(
         repeat({delay: this.updateTimeInSeconds * 1000}),
