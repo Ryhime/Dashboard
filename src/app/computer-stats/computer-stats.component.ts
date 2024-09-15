@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { catchError, of, repeat, Subscription } from 'rxjs';
 import { BackendService } from '../Services/backend.service';
 
@@ -28,6 +28,7 @@ export class ComputerStatsComponent {
 
   // https://primeng.org/chart
   // TODO: Table slows down application when closed pause it when tab closes??
+  @ViewChild('chart') chart: any;
   cpuCountText: string | null | undefined;
   cpuTypeText: string | null | undefined;
   systemText: string | null | undefined;
@@ -40,6 +41,7 @@ export class ComputerStatsComponent {
   updateTimeInSeconds: number = 1;
 
   backendService: BackendService;
+  cdr: ChangeDetectorRef;
 
   tableData = {
     labels: Array.from(Array<string>(this.MAX_GRAPH_DATA_POINTS).keys()),
@@ -85,7 +87,9 @@ export class ComputerStatsComponent {
     }
   };
 
-  constructor(backendService: BackendService) {
+  constructor(backendService: BackendService,
+    cdr: ChangeDetectorRef
+  ) {
     // Assign Static Values Using Backend Service
     this.cpuCountText = undefined;
     this.cpuTypeText = undefined;
@@ -93,6 +97,7 @@ export class ComputerStatsComponent {
     this.totalRamText = undefined;
 
     this.backendService = backendService;
+    this.cdr = cdr;
       // Listen for new computer stats data
       this.currentSubscription = backendService.computerData$.pipe(
         repeat({delay: this.updateTimeInSeconds * 1000}),
@@ -191,6 +196,6 @@ export class ComputerStatsComponent {
     });
 
     // Update Table Data to re render
-    this.tableData = {...this.tableData};
+    this.chart.chart.update();
   }
 }
