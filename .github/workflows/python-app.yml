@@ -54,3 +54,7 @@ jobs:
     - name: Test
       run: |
         ng test --no-watch --browsers=FirefoxHeadless --code-coverage
+    - name: Cypress
+      run: |
+        ./Run.sh
+        npx cypress run

@@ -8,6 +8,7 @@ Implements CI/CD pipelines for both the backend and frontend components using th
 <ul>
   <li>Front End Unit Tests Through Jasmine</li>
   <li>Postman Tests for Backend Where Needed</li>
+  <li>Cypress for Integration Tests<li>
   <li>Github Actions pipeline for linting and unit tests in the frontend.</li>
 </ul>
 
