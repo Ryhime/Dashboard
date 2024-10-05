@@ -57,4 +57,4 @@ jobs:
     - name: Cypress
       run: |
         pip install -r Service/requirements.txt
-        ./Run.sh && npx cypress run
+        ./Run.sh & npx cypress run
