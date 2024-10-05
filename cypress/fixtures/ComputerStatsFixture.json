@@ -1,0 +1,14 @@
+{
+    "cpu": "ARM",
+    "cpu_count": 16,
+    "cpu_percent": 5,
+    "gpu_percent": 4,
+    "gpu_total": 1000,
+    "gpu_used": 10,
+    "platform": "Linux-5.15.0-122-generic-x86_64-with-glibc2.35",
+    "ram_percent": 19.9,
+    "ram_total": 67.34,
+    "ram_used": 12.26,
+    "system": "Linux Mint"
+  }
+  
