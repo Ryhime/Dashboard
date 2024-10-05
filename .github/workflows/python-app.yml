@@ -56,5 +56,6 @@ jobs:
         ng test --no-watch --browsers=FirefoxHeadless --code-coverage
     - name: Cypress
       run: |
+        pip install -r Service/requirements.txt
         ./Run.sh
         npx cypress run
