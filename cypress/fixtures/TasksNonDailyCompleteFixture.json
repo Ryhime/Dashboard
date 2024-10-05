@@ -1,0 +1,39 @@
+[
+    [
+      {
+        "etag": "\"MTU2MDc3MTM2Nw\"",
+        "id": "MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow",
+        "kind": "tasks#taskList",
+        "selfLink": "https://www.googleapis.com/tasks/v1/users/@me/lists/MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow",
+        "title": "Dailies",
+        "updated": "2024-10-05T14:13:44.218Z"
+      },
+      [
+        {
+          "etag": "\"MTQ5Nzc1NjkyMw\"",
+          "id": "VHN4ejl2UTI4R1VIMy12cg",
+          "kind": "tasks#task",
+          "links": [],
+          "position": "00000000000000000000",
+          "selfLink": "https://www.googleapis.com/tasks/v1/lists/MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow/tasks/VHN4ejl2UTI4R1VIMy12cg",
+          "status": "needsAction",
+          "title": "Daily1",
+          "updated": "2024-10-04T20:43:30.000Z",
+          "webViewLink": "https://tasks.google.com/task/Tsxz9vQ28GUH3-vr"
+        }
+      ]
+    ],
+    [
+      {
+        "etag": "\"MTU4MzgzNDMxNQ\"",
+        "id": "eG1wbGF5SHk4UWRnQWJSMA",
+        "kind": "tasks#taskList",
+        "selfLink": "https://www.googleapis.com/tasks/v1/users/@me/lists/eG1wbGF5SHk4UWRnQWJSMA",
+        "title": "Not dailies",
+        "updated": "2024-10-05T20:38:07.422Z"
+      },
+      [
+      ]
+    ]
+  ]
+  

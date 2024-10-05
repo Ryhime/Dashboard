@@ -1,0 +1,51 @@
+[
+    [
+      {
+        "etag": "\"MTU2MDc3MTM2Nw\"",
+        "id": "MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow",
+        "kind": "tasks#taskList",
+        "selfLink": "https://www.googleapis.com/tasks/v1/users/@me/lists/MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow",
+        "title": "Dailies",
+        "updated": "2024-10-05T14:13:44.218Z"
+      },
+      [
+      ]
+    ],
+    [
+      {
+        "etag": "\"MTU4MzgzNDMxNQ\"",
+        "id": "eG1wbGF5SHk4UWRnQWJSMA",
+        "kind": "tasks#taskList",
+        "selfLink": "https://www.googleapis.com/tasks/v1/users/@me/lists/eG1wbGF5SHk4UWRnQWJSMA",
+        "title": "Not dailies",
+        "updated": "2024-10-05T20:38:07.422Z"
+      },
+      [
+        {
+          "etag": "\"MTU2MDQwMzEzNg\"",
+          "id": "T0dWUUZVc015UEFLTGVMUQ",
+          "kind": "tasks#task",
+          "links": [],
+          "position": "00000000000000000000",
+          "selfLink": "https://www.googleapis.com/tasks/v1/lists/eG1wbGF5SHk4UWRnQWJSMA/tasks/T0dWUUZVc015UEFLTGVMUQ",
+          "status": "needsAction",
+          "title": "Task1",
+          "updated": "2024-10-05T14:07:36.000Z",
+          "webViewLink": "https://tasks.google.com/task/OGVQFUsMyPAKLeLQ"
+        },
+        {
+          "etag": "\"MTQ5ODI1NzMyMA\"",
+          "id": "N3dvQlN2YTd6NEx2dGRlNA",
+          "kind": "tasks#task",
+          "links": [],
+          "position": "00000000000000000001",
+          "selfLink": "https://www.googleapis.com/tasks/v1/lists/eG1wbGF5SHk4UWRnQWJSMA/tasks/N3dvQlN2YTd6NEx2dGRlNA",
+          "status": "needsAction",
+          "title": "Task2",
+          "updated": "2024-10-04T20:51:49.000Z",
+          "webViewLink": "https://tasks.google.com/task/7woBSva7z4Lvtde4"
+        }
+      ]
+    ]
+  ]
+  

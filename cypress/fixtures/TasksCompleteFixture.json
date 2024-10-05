@@ -1,0 +1,27 @@
+[
+    [
+      {
+        "etag": "\"MTU2MDc3MTM2Nw\"",
+        "id": "MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow",
+        "kind": "tasks#taskList",
+        "selfLink": "https://www.googleapis.com/tasks/v1/users/@me/lists/MTc5NjUyNjMzNjAwMDExNzc3NjM6MDow",
+        "title": "Dailies",
+        "updated": "2024-10-05T14:13:44.218Z"
+      },
+      [
+      ]
+    ],
+    [
+      {
+        "etag": "\"MTU4MzgzNDMxNQ\"",
+        "id": "eG1wbGF5SHk4UWRnQWJSMA",
+        "kind": "tasks#taskList",
+        "selfLink": "https://www.googleapis.com/tasks/v1/users/@me/lists/eG1wbGF5SHk4UWRnQWJSMA",
+        "title": "Not dailies",
+        "updated": "2024-10-05T20:38:07.422Z"
+      },
+      [
+      ]
+    ]
+  ]
+  
