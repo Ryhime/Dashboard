@@ -42,5 +42,3 @@ To run: <code>ng serve --port {localPortNumber}</code>
 <br>
 <br>
 <br>
-
-<img src="DashboardPrototype.png" alt="Dashboard Image">
