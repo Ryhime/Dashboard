@@ -2,7 +2,6 @@
 
 
 ## CI/CD
-
 Implements CI/CD pipelines for both the backend and frontend components using the following:
 <br>
 <ul>
